@@ -9,7 +9,7 @@ const Navbar = () => {
                     <li>
                         <a>Item 1</a>
                     </li>
-                    <li tabindex="0">
+                    <li tabIndex="0">
                         <a>
                             Parent
                             <svg
