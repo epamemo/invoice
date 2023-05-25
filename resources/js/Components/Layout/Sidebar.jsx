@@ -12,8 +12,14 @@ function Sidebar({ children }) {
                 {children}
             </div>
             <div className="drawer-side">
-                <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                <label htmlFor="my-drawer-2" className="drawer-overlay">
+                    assafdgfssa
+                </label>
                 <ul className="menu p-4 w-80 bg-base-100 text-base-content bg-slate-50">
+                    <div className="btn btn-ghost ">
+                        <a className="normal-case text-xl">A/P Invoice</a>
+                    </div>
+
                     <li>
                         <a>Sidebar Item 1</a>
                     </li>

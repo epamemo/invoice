@@ -4,9 +4,7 @@ const Navbar = ({ user }) => {
     console.log(user);
     return (
         <div className="navbar bg-base-100">
-            <div className="navbar-start">
-                <a className="btn btn-ghost normal-case text-xl">A/P Invoice</a>
-            </div>
+            <div className="navbar-start"></div>
             <div className="navbar-center">
                 <div className="form-control">
                     <input
