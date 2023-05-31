@@ -4,8 +4,6 @@ import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/react";
-import Navbar from "@/Components/Layout/Navbar";
-
 import Sidebar from "@/Components/Layout/Sidebar";
 
 export default function Authenticated({ user, header, children }) {
@@ -13,14 +11,11 @@ export default function Authenticated({ user, header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen">
-            <Sidebar>
-                <Navbar user={user} />
+        <div className="min-h-screen dark:bg-slate-900 bg-gray-100">
+            <Sidebar user={user}>
                 {header && (
-                    <header className="bg-white border-b">
-                        <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                            {header}
-                        </div>
+                    <header className="ml-2 mr-4 mt-2 mb-4">
+                        <div className="text-5xl font-bold">{header}</div>
                     </header>
                 )}
                 <main>{children}</main>

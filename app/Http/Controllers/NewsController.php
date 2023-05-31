@@ -33,15 +33,24 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $news = new News();
+        $news->title = $request->title;
+        $news->description = $request->description;
+        $news->category = $request->title;
+        $news->author = auth()->user()->email;
+        $news->save();
 
+        return redirect()->back()->with('message', 'berita berhasil dibuat');
+    }
     /**
      * Display the specified resource.
      */
     public function show(News $news)
     {
-        //
+        $myNews = $news::where('author', auth()->user()->email)->get();
+        return Inertia::render('User/Dashboard',[
+            'myNews' => $myNews
+        ]);
     }
 
     /**

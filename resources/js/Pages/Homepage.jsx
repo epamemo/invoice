@@ -7,8 +7,8 @@ export default function Homepage(props) {
     return (
         <>
             <Head title={props.title} />
-            <Sidebar>
-                <Navbar user={props.auth.user} />
+            <Sidebar user={props.auth.user}>
+                <h1>Content</h1>
             </Sidebar>
         </>
     );
