@@ -1,7 +1,9 @@
 import { Link } from "@inertiajs/react";
 import Navbar from "@/Components/Layout/Navbar";
+import "boxicons";
 
-function Sidebar({ children, user }) {
+function Sidebar({ children, user, header }) {
+    console.log(header);
     return (
         <div className="drawer drawer-mobile">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -17,28 +19,116 @@ function Sidebar({ children, user }) {
                 {children}
             </div>
             <div className="drawer-side">
-                <label htmlFor="my-drawer-2" className="drawer-overlay">
-                    assafdgfssa
-                </label>
-                <ul className="menu lg:mr-2 lg:ml-4 text-white lg:my-4 p-4 w-80 text-base-content bg-sky-800 rounded-2xl">
-                    <div className="btn btn-ghost ">
-                        <a className="normal-case text-xl">A/P Invoice</a>
-                    </div>
-
-                    <li>
+                <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                <div className="menu lg:mr-2 lg:ml-4 lg:my-4 p-4 w-80 text-base-content bg-white rounded-2xl">
+                    <div className="btn btn-ghost h-fit py-12 mb-4">
+                        <box-icon
+                            size="md"
+                            color="#6366f1"
+                            name="task"
+                        ></box-icon>
                         <Link
-                            className="justify-between"
-                            href={route("my.news")}
+                            href={route("dashboard")}
                             as="button"
+                            className="normal-case text-3xl"
                         >
-                            Dashboard
+                            {" "}
+                            A/P Invoice
                         </Link>
-                        {/* <a>Sidebar Item 1</a> */}
-                    </li>
-                    <li>
-                        <a>Sidebar Item 2</a>
-                    </li>
-                </ul>
+                    </div>
+                    <ul className="grid gap-y-2">
+                        <li>
+                            <Link
+                                className="justify-center h-14 dark:btn btn btn-primary mb-5 text-white"
+                                href={route("page.news")}
+                                as="button"
+                            >
+                                <box-icon
+                                    name="plus"
+                                    color="#ffffff"
+                                ></box-icon>
+                                Buat Invoice
+                            </Link>
+                            {/* <a>Sidebar Item 1</a> */}
+                        </li>
+                        <p className="text-slate-400 font-semibold">
+                            Data Invoice
+                        </p>
+                        <li>
+                            {header == "Dashboard" ? (
+                                <>
+                                    <Link
+                                        className="btn-active btn-ghost "
+                                        href={route("dashboard")}
+                                        as="button"
+                                    >
+                                        <box-icon name="home" />
+                                        Dashboard
+                                    </Link>
+                                </>
+                            ) : (
+                                <>
+                                    <Link
+                                        className="  "
+                                        href={route("dashboard")}
+                                        as="button"
+                                    >
+                                        <box-icon name="home" />
+                                        Dashboard
+                                    </Link>
+                                </>
+                            )}
+                            {/* <a>Sidebar Item 1</a> */}
+                        </li>
+                        <li>
+                            {header == "History" ? (
+                                <>
+                                    <Link
+                                        className="btn-active btn-ghost "
+                                        href={route("my.news")}
+                                        as="button"
+                                    >
+                                        <box-icon name="file"></box-icon>
+                                        History
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link
+                                    className="  "
+                                    href={route("my.news")}
+                                    as="button"
+                                >
+                                    <box-icon name="file"></box-icon>
+                                    History
+                                </Link>
+                            )}
+                            {/* <a>Sidebar Item 1</a> */}
+                        </li>
+                        <p className="text-slate-400 font-semibold">
+                            Data Customer
+                        </p>
+                        <li>
+                            {header == "History" ? (
+                                <Link
+                                    className="btn-active btn-ghost "
+                                    href={route("my.news")}
+                                    as="button"
+                                >
+                                    History
+                                </Link>
+                            ) : (
+                                <Link
+                                    className="  "
+                                    href={route("my.news")}
+                                    as="button"
+                                >
+                                    History
+                                </Link>
+                            )}
+                            {/* <a>Sidebar Item 1</a> */}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

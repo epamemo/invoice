@@ -12,7 +12,7 @@ export default function Authenticated({ user, header, children }) {
 
     return (
         <div className="min-h-screen dark:bg-slate-900 bg-gray-100">
-            <Sidebar user={user}>
+            <Sidebar user={user} header={header}>
                 {header && (
                     <header className="ml-2 mr-4 mt-2 mb-4">
                         <div className="text-5xl font-bold">{header}</div>

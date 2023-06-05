@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,9 +15,13 @@ class NewsController extends Controller
     public function index()
     {
         $news = News::all();
-        return Inertia::render('Homepage',[
+        $newsTable = News::all()->sortByDesc('id');
+        $user = User::all();
+        return Inertia::render('User/Dashboard',[
             'title' => 'Dashboard',
-            'news' => $news,
+            'myNews' => $news,
+            'newsTable' => $newsTable,
+            'userData' => $user
         ]);
     }
 
@@ -48,7 +53,7 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $myNews = $news::where('author', auth()->user()->email)->get();
-        return Inertia::render('User/Dashboard',[
+        return Inertia::render('User/History',[
             'myNews' => $myNews
         ]);
     }

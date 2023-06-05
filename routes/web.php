@@ -17,8 +17,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [NewsController::class, 'index']);
-Route::post('/dashboard', [NewsController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
+Route::post('/createNews', [NewsController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
+Route::inertia('/createNews', 'User/CreateNews')->middleware(['auth', 'verified'])->name('page.news');
+Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
+Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::inertia('/404', 'Error/404');
+
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
@@ -29,7 +33,6 @@ Route::get('/welcome', function () {
     ]);
 });
 
-Route::get('/dashboard', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
