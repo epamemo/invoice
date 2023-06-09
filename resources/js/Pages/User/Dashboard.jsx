@@ -8,8 +8,8 @@ export default function Dashboard(props) {
     console.log(props);
 
     useEffect(() => {
-        if (!props.myNews) {
-            router.get("error");
+        if (!props.grpo.data) {
+            router.get("error.404");
         }
         console.log("props", props);
     }, []);
@@ -23,22 +23,21 @@ export default function Dashboard(props) {
             <div className="pl-2 pr-4 ">
                 <div className="flex gap-3">
                     <CardDashboard
-                        data={props.myNews.length}
-                        name="Total Data GRPO"
+                        data={props.grpo.data.length}
+                        name="Total Data grpo.data"
                     />
                     <CardDashboard
-                        data={props.myNews.length}
-                        name="Total Data GRPO"
+                        data={props.grpo.data.length}
+                        name="Total Data grpo.data"
                     />
                     <CardDashboard
-                        data={props.myNews.length}
-                        name="Total Data GRPO"
+                        data={props.grpo.data.length}
+                        name="Total Data grpo.data"
                     />
                 </div>
                 <div>
                     <div className="overflow-x-auto">
                         <table className="table w-full">
-                            {/* head */}
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -49,14 +48,14 @@ export default function Dashboard(props) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {props.myNews.map((news, i) => {
+                                {props.grpo.data.map((gr, i) => {
                                     return (
                                         <tr key={i}>
                                             <th>{i + 1}</th>
-                                            <td>{news.title}</td>
-                                            <td>{news.category}</td>
-                                            <td>{news.description}</td>
-                                            <td>{news.description}</td>
+                                            <td>{gr.DocNum}</td>
+                                            <td>{gr.CardName}</td>
+                                            <td>{gr.NumAtCard}</td>
+                                            <td>{gr.DocTotal}</td>
                                         </tr>
                                     );
                                 })}

@@ -21,7 +21,7 @@ Route::post('/createNews', [NewsController::class, 'store'])->middleware(['auth'
 Route::inertia('/createNews', 'User/CreateNews')->middleware(['auth', 'verified'])->name('page.news');
 Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
 Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::inertia('/404', 'Error/404');
+Route::inertia('/404', 'Error/404')->name('error.404');
 
 
 Route::get('/welcome', function () {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,15 +15,24 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::all();
-        $newsTable = News::all()->sortByDesc('id');
         $user = User::all();
+        $grpo = DB::connection('db_sap')->table('OPDN')->where('DocStatus','=','O')->paginate(20);
+        // dd($grpo);
         return Inertia::render('User/Dashboard',[
             'title' => 'Dashboard',
-            'myNews' => $news,
-            'newsTable' => $newsTable,
+            'grpo' => $grpo,
             'userData' => $user
         ]);
+
+        // $news = News::all();
+        // $newsTable = News::all()->sortByDesc('id');
+        // $user = User::all();
+        // return Inertia::render('User/Dashboard',[
+        //     'title' => 'Dashboard',
+        //     'myNews' => $news,
+        //     'newsTable' => $newsTable,
+        //     'userData' => $user
+        // ]);
     }
 
     /**
