@@ -24,7 +24,7 @@ export default function Dashboard(props) {
                 <div className="flex gap-3">
                     <CardDashboard
                         data={props.grpo.data.length}
-                        name="Total Data grpo.data"
+                        name="Total Data GRPO"
                     />
                     <CardDashboard
                         data={props.grpo.data.length}

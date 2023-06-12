@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -18,10 +19,12 @@ use Inertia\Inertia;
 */
 
 Route::post('/createNews', [NewsController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
-Route::inertia('/createNews', 'User/CreateNews')->middleware(['auth', 'verified'])->name('page.news');
+Route::get('/createNews', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('page.news');
 Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
 Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::inertia('/404', 'Error/404')->name('error.404');
+Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');
+
 
 
 Route::get('/welcome', function () {

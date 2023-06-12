@@ -3,9 +3,12 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import Test from "./Test";
 
 export default function createNews(props) {
     console.log(props);
+    // const [searchQuery, setSearchQuery] = useState("");
+    // const [filteredData, setFilteredData] = useState([]);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
@@ -23,12 +26,21 @@ export default function createNews(props) {
         setDescription("");
         setCategory("");
     };
+
+    // const handleSearch = (e) => {
+    //     const value = e.target.value;
+    //     setSearchQuery(value);
+
+    //     const filtered = data.filter((item) =>
+    //         item.toLowerCase().includes(value.toLowerCase())
+    //     );
+    //     setFilteredData(filtered);
+    // };
     // setInterval(setNotification(false), 2000);
 
     return (
-        <AuthenticatedLayout2 user={props.auth.user} header="Create News">
-            <Head title="Create News" />
-
+        <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
+            <Head title={props.title} />
             {notification && (
                 <div
                     onClick={() => setNotification(false)}
@@ -52,19 +64,22 @@ export default function createNews(props) {
                     </div>
                 </div>
             )}
+            <Test data={props.grpo.data}></Test>
             <div className="bg-white  mb-4  rounded-2xl">
                 <div className="p-6 text-gray-900 prose-h1:font-bold prose-h1:text-2xl">
-                    <h1>Buat A/P Invoice</h1>
+                    <h1 className="text-center">Tanda Terima</h1>
                     <div className="form-control my-4">
-                        <InputLabel htmlFor="title">Title</InputLabel>
-                        <TextInput
-                            type="text"
-                            placeholder="Title"
-                            name="title"
-                            id="title"
-                            value={title}
-                            onChange={(title) => setTitle(title.target.value)}
-                        />
+                        <select
+                            defaultValue="default"
+                            className="select select-bordered w-full max-w-xs"
+                        >
+                            <option disabled value="default">
+                                Pilih No. GRPO
+                            </option>
+                            {props.grpo.data.map((gr, i) => {
+                                return <option key={i}>{gr.DocNum}</option>;
+                            })}
+                        </select>
                     </div>
                     <div className="form-control my-4">
                         <InputLabel htmlFor="category">Category</InputLabel>
