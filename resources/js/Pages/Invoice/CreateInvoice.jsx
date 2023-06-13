@@ -5,7 +5,7 @@ import { Head, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import Test from "./Test";
 
-export default function createNews(props) {
+export default function createInvoice(props) {
     console.log(props);
     // const [searchQuery, setSearchQuery] = useState("");
     // const [filteredData, setFilteredData] = useState([]);
@@ -90,24 +90,18 @@ export default function createNews(props) {
                             name="name"
                             id="name"
                             value={name}
-                            onChange={(name) =>
-                                setName(name.target.value)
-                            }
+                            onChange={(name) => setName(name.target.value)}
                         />
                     </div>
                     <div className="form-control my-4">
-                        <InputLabel htmlFor="phone">
-                            phone
-                        </InputLabel>
+                        <InputLabel htmlFor="phone">phone</InputLabel>
                         <TextInput
                             type="text"
                             placeholder="phone"
                             name="phone"
                             id="phone"
                             value={phone}
-                            onChange={(phone) =>
-                                setPhone(phone.target.value)
-                            }
+                            onChange={(phone) => setPhone(phone.target.value)}
                         />
                     </div>
                     <button

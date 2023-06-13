@@ -27,21 +27,11 @@ export default function Guest({ children }) {
                         </div>
                         <div>
                             <h1>A/P Invoice</h1>
-                            
                         </div>
                     </div>
                 </div>
                 <div className="flex flex-col mb-4 rounded-3xl mt-4">
-                    <div className="m-auto">
-                        <div className="mx-auto flex">
-                            <Link href="/">
-                                <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                            </Link>
-                        </div>
-                        <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                            {children}
-                        </div>
-                    </div>
+                    <div className="m-auto">{children}</div>
                 </div>
             </div>
         </div>
