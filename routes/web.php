@@ -30,7 +30,7 @@ Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name
 
 
 Route::post('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('create.invoice');
-Route::get('/create-invoice', [InvoiceController::class, 'store'])->middleware(['auth', 'verified'])->name('vcreate.invoice');
+Route::get('/create-invoice', [InvoiceController::class, 'index'])->middleware(['auth', 'verified'])->name('vcreate.invoice');
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [

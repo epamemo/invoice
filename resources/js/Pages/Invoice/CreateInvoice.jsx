@@ -3,7 +3,7 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import Test from "./Test";
+import Test from "@/Pages/User/Test";
 
 export default function createInvoice(props) {
     console.log(props);
@@ -64,26 +64,21 @@ export default function createInvoice(props) {
                     </div>
                 </div>
             )}
-            <div className="bg-white  mb-4  rounded-2xl">
+            <div className="bg-white  mb-4 ml-2 mr-4 rounded-2xl">
                 <div className="p-6 text-gray-900 prose-h1:font-bold prose-h1:text-2xl">
                     <h1 className="text-center">Tanda Terima</h1>
-                    <div className="form-control my-4">
-                        <Test data={props.grpo.data}></Test>
-
-                        <select
-                            defaultValue="default"
-                            className="select select-bordered w-full max-w-xs"
-                        >
-                            <option disabled value="default">
-                                Pilih No. GRPO
-                            </option>
-                            {props.grpo.data.map((gr, i) => {
-                                return <option key={i}>{gr.DocNum}</option>;
-                            })}
-                        </select>
+                    <div className="grid grid-flow-col gap-4">
+                        <div className="form-control my-4">
+                            <Test data={props.grpo.data}></Test>
+                        </div>
+                        <div className="form-control my-4">
+                            <Test data={props.grpo.data}></Test>
+                        </div>
+                        <div className="form-control my-4">
+                            <Test data={props.grpo.data}></Test>
+                        </div>
                     </div>
                     <div className="form-control my-4">
-                        <InputLabel htmlFor="name">name</InputLabel>
                         <TextInput
                             type="text"
                             placeholder="name"

@@ -1,3 +1,5 @@
+import InputLabel from "@/Components/InputLabel";
+import TextInput from "@/Components/TextInput";
 import React, { useState } from "react";
 
 export default function SelectInput({ data }) {
@@ -40,29 +42,37 @@ export default function SelectInput({ data }) {
     return (
         <div className="relative">
             {selectedOption != null ? (
-                <div className="flex">
-                    <input
-                        type="text"
-                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                        placeholder="Ketik No.GRPO"
-                        value={selectedOption.NumAtCard}
-                        readOnly
-                    />
-                    <button
-                        className="btn btn-warning"
-                        onClick={() => handleOptionClick()}
-                    >
-                        reset
-                    </button>
+                <div>
+                    <InputLabel htmlFor="grponum">name</InputLabel>
+                    <div className="input-group">
+                        <TextInput
+                            type="text"
+                            id="grponum"
+                            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                            placeholder="Ketik No.GRPO"
+                            value={selectedOption.NumAtCard}
+                            readOnly
+                        />
+                        <button
+                            className="btn btn-warning relative"
+                            onClick={() => handleOptionClick()}
+                        >
+                            reset
+                        </button>
+                    </div>
                 </div>
             ) : (
-                <input
-                    type="text"
-                    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                    placeholder="Ketik No.GRPO"
-                    value={searchQuery}
-                    onChange={handleInputChange}
-                />
+                <div className="">
+                    <InputLabel htmlFor="grponum">name</InputLabel>
+                    <TextInput
+                        type="text"
+                        id="grponum"
+                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                        placeholder="Ketik No.GRPO"
+                        value={searchQuery}
+                        onChange={handleInputChange}
+                    />
+                </div>
             )}
 
             {searchQuery && (

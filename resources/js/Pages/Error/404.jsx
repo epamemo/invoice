@@ -2,7 +2,7 @@ import GuestLayout from "@/Layouts/GuestLayout";
 import { Head } from "@inertiajs/react";
 import "boxicons";
 import Lottie from "lottie-react";
-import notFound from "@/lotties/notFound.json";
+import notFound from "@/Lotties/notFound.json";
 
 export default function Dashboard(props) {
     console.log(props);
