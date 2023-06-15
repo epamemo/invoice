@@ -1,52 +1,47 @@
 import { router } from "@inertiajs/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function FormView() {
-    const [formState, setFormState] = useState([{ name: "", phone: "" }]);
+    const [formState, setFormState] = useState({ name: "", phone: "" });
+    const [printedData, setPrintedData] = useState([]);
 
-    const handleInputChange = (index, e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        const updatedFormState = [...formState];
-        updatedFormState[index][name] = value;
-        setFormState(updatedFormState);
-    };
-
-    const handleAddRow = () => {
-        const newRow = { name: "", phone: "" };
-        setFormState([...formState, newRow]);
-        console.log(formState);
+        setFormState((prevState) => ({ ...prevState, [name]: value }));
     };
 
     const handleSubmit = () => {
-        console.log("S", formState);
-        const data = { ...formState };
-        router.post("/createphone", data);
+        setPrintedData((prevState) => [...prevState, formState]);
         setFormState({ name: "", phone: "" });
     };
 
     return (
         <div>
             <h1>Form View</h1>
-            <button onClick={() => handleSubmit()}>Submit</button>
-            {formState.map((row, index) => (
-                <div key={index}>
-                    <input
-                        type="text"
-                        name="name"
-                        value={row.name}
-                        onChange={(e) => handleInputChange(index, e)}
-                        placeholder="Name"
-                    />
-                    <input
-                        type="text"
-                        name="phone"
-                        value={row.phone}
-                        onChange={(e) => handleInputChange(index, e)}
-                        placeholder="Phone"
-                    />
-                </div>
-            ))}
-            <button onClick={handleAddRow}>Add Row</button>
+            <div>
+                <input
+                    type="text"
+                    name="name"
+                    value={formState.name}
+                    onChange={handleInputChange}
+                    placeholder="Name"
+                />
+                <input
+                    type="text"
+                    name="phone"
+                    value={formState.phone}
+                    onChange={handleInputChange}
+                    placeholder="Phone"
+                />
+            </div>
+            <button onClick={handleSubmit}>Add Entry</button>
+            <div>
+                {printedData.map((entry, index) => (
+                    <div key={index}>
+                        Name: {entry.name}, Phone: {entry.phone}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

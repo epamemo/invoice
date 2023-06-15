@@ -3,7 +3,6 @@ import Navbar from "@/Components/Layout/Navbar";
 import "boxicons";
 
 function Sidebar({ children, user, header }) {
-    console.log(header);
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

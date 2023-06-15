@@ -34,7 +34,6 @@ export default function SelectInput({ data }) {
     //     option.label.toLowerCase().includes(searchQuery.toLowerCase())
     // );
 
-    console.log(data[13].NumAtCard);
     const filteredOptions = data.filter((data) =>
         data.NumAtCard?.toLowerCase().includes(searchQuery.toLowerCase())
     );

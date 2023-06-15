@@ -3,7 +3,6 @@ import "boxicons";
 // import profile from "public/fa";
 
 const Navbar = ({ user, children }) => {
-    console.log(user);
     return (
         <div className="pb-2  pl-2 pr-4 sticky">
             <div className="navbar bg-base-100 dark:bg-slate-700 rounded-2xl">

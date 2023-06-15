@@ -22,7 +22,7 @@ export default function Dashboard(props) {
             <Head title="Dashboard" />
 
             <div className="pl-2 pr-4 ">
-                <div className="flex gap-3">
+                <div className="flex gap-3 mb-3">
                     <CardDashboard
                         data={props.grpo.total}
                         name="Total Data GRPO"
@@ -36,7 +36,7 @@ export default function Dashboard(props) {
                         name="Total Data grpo.data"
                     />
                 </div>
-                <div className="overflow-x-auto h-96">
+                <div className="overflow-x-auto h-96 rounded-2xl border-2">
                     <table className="table table-pin-rows table-pin-cols">
                         <thead>
                             <tr className="z-0">
