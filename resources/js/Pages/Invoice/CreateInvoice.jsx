@@ -2,7 +2,7 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Head, router } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
 
 export default function CreateInvoice(props) {
@@ -26,20 +26,18 @@ export default function CreateInvoice(props) {
     //     setName("");
     // };
 
-    const [formState, setFormState] = useState({ name: "", phone: "" });
+    const [formState, setFormState] = useState({ name: "", phone: "", po: "" });
     const [printedData, setPrintedData] = useState([]);
 
     const handleInputChange = (e) => {
-        setSearchQuery(e.target.value);
         const { name, value } = e.target;
         setFormState((prevState) => ({ ...prevState, [name]: value }));
-        console.log(formState);
     };
 
     const handleAddRow = () => {
-        if (formState.name && formState.phone) {
+        if (formState.name && formState.phone && inputRef) {
             setPrintedData((prevState) => [...prevState, formState]);
-            setFormState({ name: "", phone: "" });
+            setFormState({ name: "", phone: "", po: "" });
         }
     };
 
@@ -66,13 +64,24 @@ export default function CreateInvoice(props) {
     // const handleInputChange = (e) => {
     //     setSearchQuery(e.target.value);
     // };
+    const resetSelected = () => {
+        setSelectedOption(null);
+    };
+
+    const inputRef = useRef(null);
 
     const handleOptionClick = (data) => {
-        const { name, value } = e.target;
-        setFormState((prevState) => ({ ...prevState, [name]: value }));
+        // setFormState((prevState) => ({ ...prevState, name: data }));
         setSelectedOption(data);
+        console.log("data", data);
+        console.log("name", name);
+        console.log("formstate", formState);
+        console.log("search", searchQuery);
         setSearchQuery("");
+        console.log("selectedOpt", selectedOption);
     };
+
+    // console.log("outslect", selectedOption);
 
     const filteredOptions = props.grpo.data.filter((data) =>
         data.NumAtCard?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -122,13 +131,11 @@ export default function CreateInvoice(props) {
                         <div className="my-4 relative">
                             {selectedOption != null ? (
                                 <div>
-                                    <InputLabel htmlFor="grponum">
-                                        name
-                                    </InputLabel>
+                                    <InputLabel htmlFor="name">name</InputLabel>
                                     <div className="input-group">
                                         <TextInput
                                             type="text"
-                                            id="grponum"
+                                            id="name"
                                             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                                             placeholder="Ketik No.GRPO"
                                             value={selectedOption.NumAtCard}
@@ -136,7 +143,7 @@ export default function CreateInvoice(props) {
                                         />
                                         <button
                                             className="btn btn-warning relative"
-                                            onClick={() => handleOptionClick()}
+                                            onClick={() => resetSelected()}
                                         >
                                             reset
                                         </button>
@@ -144,15 +151,14 @@ export default function CreateInvoice(props) {
                                 </div>
                             ) : (
                                 <div className="">
-                                    <InputLabel htmlFor="grponum">
-                                        name
-                                    </InputLabel>
+                                    <InputLabel htmlFor="name">name</InputLabel>
                                     <TextInput
                                         type="text"
                                         id="name"
+                                        name="name"
                                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                                         placeholder="Ketik No.GRPO"
-                                        value={searchQuery}
+                                        value={formState.name}
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -164,9 +170,9 @@ export default function CreateInvoice(props) {
                                         <div
                                             key={index}
                                             className="px-4 py-2 cursor-pointer hover:bg-blue-100"
-                                            onClick={() =>
-                                                handleOptionClick(option)
-                                            }
+                                            onClick={handleOptionClick(
+                                                option.NumAtCard
+                                            )}
                                         >
                                             {option.NumAtCard}
                                         </div>
@@ -175,32 +181,28 @@ export default function CreateInvoice(props) {
                             )}
                         </div>
                         <div className="form-control my-4">
-                            <Test data={props.grpo.data}></Test>
+                            <Test
+                                data={props.grpo.data}
+                                nameInpt="phone"
+                                id="phone"
+                                type="number"
+                                label="Phone"
+                                placeholder="+62841627113"
+                                value={formState.phone}
+                                onchange={handleInputChange}
+                            ></Test>
                         </div>
                         <div className="form-control my-4">
-                            <Test data={props.grpo.data}></Test>
+                            <Test
+                                data={props.grpo.data}
+                                nameInpt="PO"
+                                id="po"
+                                type="text"
+                                label="PO"
+                                placeholder="SMP/A/31/"
+                                ref={inputRef}
+                            ></Test>
                         </div>
-                    </div>
-                    <div className="form-control my-4">
-                        <TextInput
-                            type="text"
-                            placeholder="name"
-                            name="name"
-                            id="name"
-                            // value={formState.name}
-                            onChange={handleInputChange}
-                        />
-                    </div>
-                    <div className="form-control my-4">
-                        <InputLabel htmlFor="phone">phone</InputLabel>
-                        <TextInput
-                            type="text"
-                            placeholder="phone"
-                            name="phone"
-                            id="phone"
-                            // value={formState.phone}
-                            onChange={handleInputChange}
-                        />
                     </div>
                     <button
                         className="btn btn-primary"
@@ -208,8 +210,14 @@ export default function CreateInvoice(props) {
                     >
                         Submit
                     </button>
+                    <button
+                        className="btn btn-primary mx-3"
+                        onClick={handleAddRow}
+                    >
+                        Tambah Data
+                    </button>
                 </div>
-                <div>
+                {/* <div>
                     <h1>Form View</h1>
                     <div>
                         <input
@@ -228,19 +236,19 @@ export default function CreateInvoice(props) {
                         />
                     </div>
                     <button onClick={handleAddRow}>Add Entry</button>
-                    <div>
-                        {printedData.map((entry, index) => (
-                            <div key={index}>
-                                Name: {entry.name}, Phone: {entry.phone}
-                                <button onClick={() => handleDeleteRow(index)}>
-                                    Delete
-                                </button>
-                                <button onClick={() => handleEditRow(index)}>
-                                    Edit
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+                </div> */}
+                <div>
+                    {printedData.map((entry, index) => (
+                        <div key={index}>
+                            Name: {entry.name}, Phone: {entry.phone}
+                            <button onClick={() => handleDeleteRow(index)}>
+                                Delete
+                            </button>
+                            <button onClick={() => handleEditRow(index)}>
+                                Edit
+                            </button>
+                        </div>
+                    ))}
                 </div>
             </div>
         </AuthenticatedLayout2>

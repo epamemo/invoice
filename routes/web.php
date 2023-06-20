@@ -23,6 +23,7 @@ use Inertia\Inertia;
 // Route::get('/create-news', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('page.news');
 Route::post('/createphone', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.customer');
 Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
+Route::get('/dashboard', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::inertia('/404', 'Error/404')->name('error.404');
 Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');

@@ -2,7 +2,16 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import React, { useState } from "react";
 
-export default function SelectInput({ data }) {
+export default function SelectInput({
+    data,
+    id,
+    nameInpt,
+    label,
+    type,
+    placeholder,
+    onchange,
+    value,
+}) {
     const options = [
         { value: "apple", label: "Apple" },
         { value: "banana", label: "Banana" },
@@ -27,7 +36,7 @@ export default function SelectInput({ data }) {
     };
 
     const resetSelected = () => {
-        setSelectedOption("");
+        setSelectedOption(null);
     };
 
     // const filteredOptions = options.filter((option) =>
@@ -42,19 +51,19 @@ export default function SelectInput({ data }) {
         <div className="relative">
             {selectedOption != null ? (
                 <div>
-                    <InputLabel htmlFor="grponum">name</InputLabel>
+                    <InputLabel htmlFor={id}>{label}</InputLabel>
                     <div className="input-group">
                         <TextInput
-                            type="text"
-                            id="grponum"
+                            type={type}
+                            id={id}
+                            name={nameInpt}
                             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                            placeholder="Ketik No.GRPO"
-                            value={selectedOption.NumAtCard}
+                            value={selectedOption}
                             readOnly
                         />
                         <button
                             className="btn btn-warning relative"
-                            onClick={() => handleOptionClick()}
+                            onClick={() => resetSelected()}
                         >
                             reset
                         </button>
@@ -62,14 +71,15 @@ export default function SelectInput({ data }) {
                 </div>
             ) : (
                 <div className="">
-                    <InputLabel htmlFor="grponum">name</InputLabel>
+                    <InputLabel htmlFor={id}>{label}</InputLabel>
                     <TextInput
-                        type="text"
-                        id="grponum"
+                        type={type}
+                        id={id}
+                        name={nameInpt}
                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                        placeholder="Ketik No.GRPO"
-                        value={searchQuery}
-                        onChange={handleInputChange}
+                        placeholder={placeholder}
+                        value={value ? value : searchQuery}
+                        onChange={onchange ? onchange : handleInputChange}
                     />
                 </div>
             )}
@@ -80,7 +90,7 @@ export default function SelectInput({ data }) {
                         <div
                             key={index}
                             className="px-4 py-2 cursor-pointer hover:bg-blue-100"
-                            onClick={() => handleOptionClick(option)}
+                            onClick={() => handleOptionClick(option.NumAtCard)}
                         >
                             {option.NumAtCard}
                         </div>
