@@ -54,7 +54,7 @@ export default function Guest({ children }) {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-wrap m-4 bg-white rounded-3xl p-12 align-middle">
+                <div className="flex flex-wrap m-4 bg-white rounded-2xl p-12 align-middle">
                     <div className="m-auto  ">{children}</div>
                 </div>
             </div>

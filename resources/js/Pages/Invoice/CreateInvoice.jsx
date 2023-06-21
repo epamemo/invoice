@@ -1,6 +1,7 @@
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
+import LogoSimetri from "@/Img/logo-simetri.jpg";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
@@ -100,7 +101,6 @@ export default function CreateInvoice(props) {
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
-            <Head title={props.title} />
             {notification && (
                 <div
                     onClick={() => setNotification(false)}
@@ -124,9 +124,8 @@ export default function CreateInvoice(props) {
                     </div>
                 </div>
             )}
-            <div className="bg-white  mb-4 ml-2 mr-4 rounded-2xl">
-                <div className="p-6 text-gray-900 prose-h1:font-bold prose-h1:text-2xl">
-                    <h1 className="text-center">Tanda Terima</h1>
+            <div className="">
+                <div className="text-gray-900">
                     <div className="grid grid-flow-col gap-4">
                         <div className="my-4 relative">
                             {selectedOption != null ? (
@@ -249,6 +248,132 @@ export default function CreateInvoice(props) {
                             </button>
                         </div>
                     ))}
+                </div>
+                <div className="border-2 p-8 mt-4">
+                    <div className="grid grid-flow-col justify-between prose max-w-none">
+                        <div className="">
+                            <div className="flex flex-wrap  items-center mb-5 h-fit">
+                                <img
+                                    src={LogoSimetri}
+                                    alt="logo-simetri"
+                                    className="h-16 mr-4"
+                                />
+                                <h2 className="m-0">
+                                    PT. SINAR METRINDO PERKASA
+                                </h2>
+                            </div>
+                            <h4 className="">Head Office</h4>
+                            <p>
+                                Aries Niaga Blok A1 No. 3A-3B, Jalan Taman
+                                Aries, Meruya Utara, Kembangan, Jakarta Barat,
+                                DKI 11620, Indonesia
+                            </p>
+                            <h4>Workshop</h4>
+                            <p>
+                                Aries Niaga Blok A1 No. 3A-3B, Jalan Taman
+                                Aries, Meruya Utara, Kembangan, Jakarta Barat,
+                                DKI 11620, Indonesia
+                            </p>
+                        </div>
+                        <div className="">
+                            <h1 className="text-center">INVOICE</h1>
+                        </div>
+                        <div>
+                            <h4>Kepada</h4>
+                            <p>Customer Name</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Bersama ini kami kirimkan kepada / terima dari : </p>
+                        <p>
+                            Kwitansi-kwitansi / faktur-faktur sebagai berikut :
+                        </p>
+                        <div>
+                            <div className="overflow-x-auto mt-4">
+                                <table className="table table-zebra border-2">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>No. Kwitansi</th>
+                                            <th>Tanggal</th>
+                                            <th>Nominal</th>
+                                            <th>Opsi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>Cy Ganderton</td>
+                                            <td>Quality Control Specialist</td>
+                                            <td>Rp. 10.000.000,-</td>
+                                            <td>
+                                                <button>Edit</button>
+                                                <button>Delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>Hart Hagerty</td>
+                                            <td>Desktop Support Technician</td>
+                                            <td>Rp. 10.000.000,-</td>
+                                            <td>
+                                                <button>Edit</button>
+                                                <button>Delete</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Brice Swyre</td>
+                                            <td>Tax Accountant</td>
+                                            <td>Rp. 10.000.000,-</td>
+                                            <td>
+                                                <button>Edit</button>
+                                                <button>Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <p>
+                                Pembayaran setiap hari Jum'at, 2 minggu sekali
+                            </p>
+                            <p>Mulai jam 13.00 s/d 15.00</p>
+                        </div>
+                        <div>
+                            <div>
+                                <h4>Subtotal</h4>
+                                <p>Rp. 30.000.000,-</p>
+                            </div>
+                            <div>
+                                <h4>Pajak (11%)</h4>
+                                <p>Rp. 3.300.000,-</p>
+                            </div>
+                            <div>
+                                <h4>Diskon</h4>
+                                <p>Rp. 300.000,-</p>
+                            </div>
+                            <div>
+                                <h2>Total</h2>
+                                <p>Rp. 33.000.000,-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <p>Jakarta, 21 Juni 2023</p>
+                        <div>
+                            <div>
+                                <p>Penerima Barang</p>
+                                <p>Nama Penerima</p>
+                            </div>
+                            <div>
+                                <p>Nama Customer</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </AuthenticatedLayout2>
