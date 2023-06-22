@@ -17,6 +17,8 @@ export default {
             colors: {
                 "trust-blue": "#343DF5",
                 "deep-blue": "#1A26D8",
+                "sim-red": "#D71A21",
+                "sim-blue": "#00568C",
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],

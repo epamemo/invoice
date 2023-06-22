@@ -250,54 +250,69 @@ export default function CreateInvoice(props) {
                     ))}
                 </div>
                 <div className="border-2 p-8 mt-4">
-                    <div className="grid grid-flow-col justify-between prose max-w-none">
-                        <div className="">
-                            <div className="flex flex-wrap  items-center mb-5 h-fit">
+                    <div className="grid grid-flow-col gap-6 justify-between prose max-w-none mb-16">
+                        <div className="w-2/4">
+                            <div className="flex flex-wrap items-center h-fit">
                                 <img
                                     src={LogoSimetri}
                                     alt="logo-simetri"
-                                    className="h-16 mr-4"
+                                    className="h-16 mr-4 mb-0 mt-0"
                                 />
                                 <h2 className="m-0">
                                     PT. SINAR METRINDO PERKASA
                                 </h2>
                             </div>
-                            <h4 className="">Head Office</h4>
-                            <p>
-                                Aries Niaga Blok A1 No. 3A-3B, Jalan Taman
-                                Aries, Meruya Utara, Kembangan, Jakarta Barat,
-                                DKI 11620, Indonesia
-                            </p>
-                            <h4>Workshop</h4>
-                            <p>
-                                Aries Niaga Blok A1 No. 3A-3B, Jalan Taman
-                                Aries, Meruya Utara, Kembangan, Jakarta Barat,
-                                DKI 11620, Indonesia
-                            </p>
+                            <div className="grid grid-flow-col gap-4">
+                                <div>
+                                    <h4 className="">Head Office</h4>
+                                    <p>
+                                        Aries Niaga Blok A1 No. 3A-3B, Jalan
+                                        Taman Aries, Meruya Utara, Kembangan,
+                                        Jakarta Barat, DKI 11620, Indonesia
+                                    </p>
+                                </div>
+                                <div>
+                                    <h4>Workshop</h4>
+                                    <p>
+                                        Aries Niaga Blok A1 No. 3A-3B, Jalan
+                                        Taman Aries, Meruya Utara, Kembangan,
+                                        Jakarta Barat, DKI 11620, Indonesia
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div className="">
-                            <h1 className="text-center">INVOICE</h1>
-                        </div>
-                        <div>
-                            <h4>Kepada</h4>
-                            <p>Customer Name</p>
+                        <div className="grid grid-flow-row content-between ">
+                            <h1 className="text-center">INVOICE</h1>{" "}
+                            <div>
+                                <h4>Kepada</h4>
+                                <p>Customer Name</p>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <p>Bersama ini kami kirimkan kepada / terima dari : </p>
-                        <p>
+                    <div className="prose max-w-none">
+                        <p className="m-0">
                             Kwitansi-kwitansi / faktur-faktur sebagai berikut :
                         </p>
-                        <div>
-                            <div className="overflow-x-auto mt-4">
+                        <div className="m-0">
+                            <div className="overflow-x-auto">
                                 <table className="table table-zebra border-2">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
-                                            <th>No. Kwitansi</th>
-                                            <th>Tanggal</th>
-                                            <th>Nominal</th>
-                                            <th>Opsi</th>
+                                            <th className="bg-sim-red text-white">
+                                                No.
+                                            </th>
+                                            <th className="bg-sim-red text-white">
+                                                No. Kwitansi
+                                            </th>
+                                            <th className="bg-sim-red text-white">
+                                                Tanggal
+                                            </th>
+                                            <th className="bg-sim-blue text-white">
+                                                Nominal
+                                            </th>
+                                            <th className="bg-sim-blue text-white">
+                                                Opsi
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -305,7 +320,9 @@ export default function CreateInvoice(props) {
                                             <th>1</th>
                                             <td>Cy Ganderton</td>
                                             <td>Quality Control Specialist</td>
-                                            <td>Rp. 10.000.000,-</td>
+                                            <td className="font-bold">
+                                                Rp. 10.000.000,-
+                                            </td>
                                             <td>
                                                 <button>Edit</button>
                                                 <button>Delete</button>
@@ -336,30 +353,22 @@ export default function CreateInvoice(props) {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className="prose max-w-none grid grid-flow-col ">
                         <div>
-                            <p>
-                                Pembayaran setiap hari Jum'at, 2 minggu sekali
+                            <p className="m-0">
+                                Pembayaran setiap hari Jum'at, 2 minggu sekali{" "}
+                                <br></br>Mulai jam 13.00 s/d 15.00
                             </p>
-                            <p>Mulai jam 13.00 s/d 15.00</p>
                         </div>
-                        <div>
-                            <div>
-                                <h4>Subtotal</h4>
-                                <p>Rp. 30.000.000,-</p>
-                            </div>
-                            <div>
-                                <h4>Pajak (11%)</h4>
-                                <p>Rp. 3.300.000,-</p>
-                            </div>
-                            <div>
-                                <h4>Diskon</h4>
-                                <p>Rp. 300.000,-</p>
-                            </div>
-                            <div>
-                                <h2>Total</h2>
-                                <p>Rp. 33.000.000,-</p>
-                            </div>
+                        <div className="grid grid-rows-4 grid-flow-col">
+                            <h4 className="m-0">Subtotal</h4>
+                            <h4 className="m-0">Pajak (11%)</h4>
+                            <h4 className="m-0">Diskon</h4>
+                            <h2 className="m-0">Total</h2>
+                            <p className="m-0">: Rp. 30.000.000,-</p>
+                            <p className="m-0">: Rp. 3.300.000,-</p>
+                            <p className="m-0">: Rp. 300.000,-</p>
+                            <p className="m-0">: Rp. 33.000.000,-</p>
                         </div>
                     </div>
                     <div>
