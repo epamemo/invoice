@@ -14,10 +14,10 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $grpo = DB::connection('db_sap')->table('OPOR')->where('DocStatus','=','O')->paginate(20);
+        // $grpo = DB::connection('db_sap')->table('OPOR')->where('DocStatus','=','O')->paginate(20);
         return Inertia::render('Invoice/CreateInvoice',[
             'title' => 'Pembuatan Tanda Terima',
-            'grpo' => $grpo
+            // 'grpo' => $grpo
         ]);
     }
 

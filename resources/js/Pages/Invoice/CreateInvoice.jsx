@@ -5,6 +5,7 @@ import LogoSimetri from "@/Img/logo-simetri.jpg";
 import { Head, router } from "@inertiajs/react";
 import { useEffect, useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
+import { FormatRupiah } from "@arismun/format-rupiah";
 
 export default function CreateInvoice(props) {
     // const [searchQuery, setSearchQuery] = useState("");
@@ -27,18 +28,32 @@ export default function CreateInvoice(props) {
     //     setName("");
     // };
 
-    const [formState, setFormState] = useState({ name: "", phone: "", po: "" });
+    const [formState, setFormState] = useState({
+        nokw: "",
+        tgl: "",
+        nilai: 0,
+    });
     const [printedData, setPrintedData] = useState([]);
-
+    // console.log(printedData.length);
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormState((prevState) => ({ ...prevState, [name]: value }));
+        // console.log(e.target.name);
+        if (e.target.name == "nilai") {
+            const { name, value } = e.target;
+            setFormState((prevState) => ({
+                ...prevState,
+                [name]: parseInt(value),
+            }));
+        } else {
+            const { name, value } = e.target;
+            setFormState((prevState) => ({ ...prevState, [name]: value }));
+        }
     };
 
     const handleAddRow = () => {
-        if (formState.name && formState.phone && inputRef) {
+        console.log(formState);
+        if (formState.nokw && formState.tgl && formState.nilai) {
             setPrintedData((prevState) => [...prevState, formState]);
-            setFormState({ name: "", phone: "", po: "" });
+            setFormState({ nokw: "", tgl: "", nilai: 0 });
         }
     };
 
@@ -46,7 +61,7 @@ export default function CreateInvoice(props) {
         console.log("S", formState);
         const data = { ...formState };
         router.post("/createphone", data);
-        setFormState({ name: "", phone: "" });
+        setFormState({ nokw: "", tgl: "", nilai: 0 });
     };
 
     const handleDeleteRow = (index) => {
@@ -81,12 +96,22 @@ export default function CreateInvoice(props) {
         setSearchQuery("");
         console.log("selectedOpt", selectedOption);
     };
+    let total = 0;
+    if (printedData.length != 0) {
+        total = printedData.reduce(
+            (total, currentItem) => (total = total + currentItem.nilai),
+            0
+        );
+
+        console.log(printedData.reduce((a, v) => (a = a + v.nilai), 0));
+        console.log(total);
+    }
 
     // console.log("outslect", selectedOption);
 
-    const filteredOptions = props.grpo.data.filter((data) =>
-        data.NumAtCard?.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    // const filteredOptions = props.grpo.data.filter((data) =>
+    //     data.NumAtCard?.toLowerCase().includes(searchQuery.toLowerCase())
+    // );
 
     // const handleSearch = (e) => {
     //     const value = e.target.value;
@@ -130,13 +155,13 @@ export default function CreateInvoice(props) {
                         <div className="my-4 relative">
                             {selectedOption != null ? (
                                 <div>
-                                    <InputLabel htmlFor="name">name</InputLabel>
+                                    <InputLabel htmlFor="nokw">name</InputLabel>
                                     <div className="input-group">
                                         <TextInput
                                             type="text"
-                                            id="name"
+                                            id="nokw"
                                             className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                                            placeholder="Ketik No.GRPO"
+                                            placeholder="Ketik No.Kwitansi"
                                             value={selectedOption.NumAtCard}
                                             readOnly
                                         />
@@ -150,14 +175,14 @@ export default function CreateInvoice(props) {
                                 </div>
                             ) : (
                                 <div className="">
-                                    <InputLabel htmlFor="name">name</InputLabel>
+                                    <InputLabel htmlFor="nokw">name</InputLabel>
                                     <TextInput
                                         type="text"
-                                        id="name"
-                                        name="name"
+                                        id="nokw"
+                                        name="nokw"
                                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                                        placeholder="Ketik No.GRPO"
-                                        value={formState.name}
+                                        placeholder="Ketik No.Kwitansi"
+                                        value={formState.nokw}
                                         onChange={handleInputChange}
                                     />
                                 </div>
@@ -181,25 +206,26 @@ export default function CreateInvoice(props) {
                         </div>
                         <div className="form-control my-4">
                             <Test
-                                data={props.grpo.data}
-                                nameInpt="phone"
-                                id="phone"
-                                type="number"
+                                // data={props.grpo.data}
+                                nameInpt="tgl"
+                                id="tgl"
+                                type="date"
                                 label="Phone"
                                 placeholder="+62841627113"
-                                value={formState.phone}
+                                value={formState.tgl}
                                 onchange={handleInputChange}
                             ></Test>
                         </div>
                         <div className="form-control my-4">
                             <Test
-                                data={props.grpo.data}
-                                nameInpt="PO"
-                                id="po"
-                                type="text"
+                                // data={props.grpo.data}
+                                nameInpt="nilai"
+                                id="nilai"
+                                type="number"
                                 label="PO"
-                                placeholder="SMP/A/31/"
-                                ref={inputRef}
+                                value={formState.nilai}
+                                onchange={handleInputChange}
+                                placeholder="122.000"
                             ></Test>
                         </div>
                     </div>
@@ -236,10 +262,10 @@ export default function CreateInvoice(props) {
                     </div>
                     <button onClick={handleAddRow}>Add Entry</button>
                 </div> */}
-                <div>
+                {/* <div>
                     {printedData.map((entry, index) => (
                         <div key={index}>
-                            Name: {entry.name}, Phone: {entry.phone}
+                            Name: {entry.nokw}, Phone: {entry.tgl}
                             <button onClick={() => handleDeleteRow(index)}>
                                 Delete
                             </button>
@@ -248,7 +274,7 @@ export default function CreateInvoice(props) {
                             </button>
                         </div>
                     ))}
-                </div>
+                </div> */}
                 <div className="border-2 p-8 mt-4">
                     <div className="grid grid-flow-col gap-6 justify-between prose max-w-none mb-16">
                         <div className="w-2/4">
@@ -298,56 +324,66 @@ export default function CreateInvoice(props) {
                                 <table className="table table-zebra border-2">
                                     <thead>
                                         <tr>
-                                            <th className="bg-sim-red text-white">
+                                            <th className="bg-sim-red text-white text-center">
                                                 No.
                                             </th>
-                                            <th className="bg-sim-red text-white">
+                                            <th className="bg-sim-red text-white text-center">
                                                 No. Kwitansi
                                             </th>
-                                            <th className="bg-sim-red text-white">
+                                            <th className="bg-sim-red text-white text-center">
                                                 Tanggal
                                             </th>
-                                            <th className="bg-sim-blue text-white">
+                                            <th className="bg-sim-blue text-white text-center">
                                                 Nominal
                                             </th>
-                                            <th className="bg-sim-blue text-white">
+                                            <th className="bg-sim-blue text-white text-center">
                                                 Opsi
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>1</th>
-                                            <td>Cy Ganderton</td>
-                                            <td>Quality Control Specialist</td>
-                                            <td className="font-bold">
-                                                Rp. 10.000.000,-
-                                            </td>
-                                            <td>
-                                                <button>Edit</button>
-                                                <button>Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>2</th>
-                                            <td>Hart Hagerty</td>
-                                            <td>Desktop Support Technician</td>
-                                            <td>Rp. 10.000.000,-</td>
-                                            <td>
-                                                <button>Edit</button>
-                                                <button>Delete</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>3</th>
-                                            <td>Brice Swyre</td>
-                                            <td>Tax Accountant</td>
-                                            <td>Rp. 10.000.000,-</td>
-                                            <td>
-                                                <button>Edit</button>
-                                                <button>Delete</button>
-                                            </td>
-                                        </tr>
+                                        {printedData.length != 0 ? (
+                                            printedData.map((entry, index) => (
+                                                <tr key={index}>
+                                                    <th>{index + 1}</th>
+                                                    <td>{entry.nokw},</td>
+                                                    <td>{entry.tgl}</td>
+                                                    <td className="text-right">
+                                                        <FormatRupiah
+                                                            value={entry.nilai}
+                                                        />
+                                                    </td>
+                                                    <td className="grid grid-flow-col items-center gap-2">
+                                                        <button
+                                                            className="btn btn-accent"
+                                                            onClick={() =>
+                                                                handleEditRow(
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            Edit
+                                                        </button>
+                                                        <button
+                                                            className="btn btn-ghost"
+                                                            onClick={() =>
+                                                                handleDeleteRow(
+                                                                    index
+                                                                )
+                                                            }
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        ) : (
+                                            <tr className="text-center">
+                                                <th colSpan={5}>
+                                                    (Data belum ada)
+                                                </th>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>
@@ -365,10 +401,22 @@ export default function CreateInvoice(props) {
                             <h4 className="m-0">Pajak (11%)</h4>
                             <h4 className="m-0">Diskon</h4>
                             <h2 className="m-0">Total</h2>
-                            <p className="m-0">: Rp. 30.000.000,-</p>
-                            <p className="m-0">: Rp. 3.300.000,-</p>
+                            <p className="m-0">
+                                : <FormatRupiah value={total} />
+                                ,-
+                            </p>
+                            <p className="m-0">
+                                : <FormatRupiah value={(total * 11) / 100} />
+                                ,-
+                            </p>
                             <p className="m-0">: Rp. 300.000,-</p>
-                            <p className="m-0">: Rp. 33.000.000,-</p>
+                            <p className="m-0">
+                                :{" "}
+                                <FormatRupiah
+                                    value={total + (total * 11) / 100}
+                                />
+                                ,-
+                            </p>
                         </div>
                     </div>
                     <div>

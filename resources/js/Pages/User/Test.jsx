@@ -3,7 +3,6 @@ import TextInput from "@/Components/TextInput";
 import React, { useState } from "react";
 
 export default function SelectInput({
-    data,
     id,
     nameInpt,
     label,
@@ -12,7 +11,7 @@ export default function SelectInput({
     onchange,
     value,
 }) {
-    const options = [
+    const data = [
         { value: "apple", label: "Apple" },
         { value: "banana", label: "Banana" },
         { value: "cherry", label: "Cherry" },
