@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('invoice_items', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_id')->unsigned();
+            $table->text('nokw');
             $table->date('date');
             $table->decimal('price', 8, 2);
             $table->timestamps();

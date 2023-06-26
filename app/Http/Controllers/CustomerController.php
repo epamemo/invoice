@@ -47,9 +47,9 @@ class CustomerController extends Controller
             // $customer->name = $data->name;
             // $customer->phone = $data->phone;
             // $customer->save();
-            DB::table('customers')->insert($data);
         // }
-
+        DB::table('customers')->insert($data);
+            
         return redirect()->back()->with('message', 'berita berhasil dibuat');
     }
 

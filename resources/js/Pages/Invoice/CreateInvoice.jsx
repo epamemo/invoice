@@ -2,42 +2,41 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import LogoSimetri from "@/Img/logo-simetri.jpg";
-import { Head, router } from "@inertiajs/react";
-import { useEffect, useRef, useState } from "react";
+import { Head, router, usePage } from "@inertiajs/react";
+import { useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
 import { FormatRupiah } from "@arismun/format-rupiah";
 
 export default function CreateInvoice(props) {
-    // const [searchQuery, setSearchQuery] = useState("");
-    // const [filteredData, setFilteredData] = useState([]);
-    const [title, setTitle] = useState("");
-    const [phone, setPhone] = useState("");
-    const [name, setName] = useState("");
     const [notification, setNotification] = useState(false);
-
-    // const handleSubmit = () => {
-    //     const data = {
-    //         title,
-    //         phone,
-    //         name,
-    //     };
-    //     router.post("/createNews", data);
-    //     setNotification(true);
-    //     setTitle("");
-    //     setPhone("");
-    //     setName("");
-    // };
-
     const [formState, setFormState] = useState({
         nokw: "",
-        tgl: "",
-        nilai: 0,
+        date: "",
+        price: 0,
     });
+
+    const [customerState, setCustomerState] = useState();
+
     const [printedData, setPrintedData] = useState([]);
-    // console.log(printedData.length);
+    const months = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+    ];
+
+    let dateNow = new Date();
+    const { auth } = usePage().props;
     const handleInputChange = (e) => {
-        // console.log(e.target.name);
-        if (e.target.name == "nilai") {
+        if (e.target.name == "price") {
             const { name, value } = e.target;
             setFormState((prevState) => ({
                 ...prevState,
@@ -51,17 +50,18 @@ export default function CreateInvoice(props) {
 
     const handleAddRow = () => {
         console.log(formState);
-        if (formState.nokw && formState.tgl && formState.nilai) {
+        if (formState.nokw && formState.date && formState.price) {
             setPrintedData((prevState) => [...prevState, formState]);
-            setFormState({ nokw: "", tgl: "", nilai: 0 });
+            setFormState({ nokw: "", date: "", price: 0 });
         }
     };
 
     const handleSubmit = () => {
-        console.log("S", formState);
-        const data = { ...formState };
-        router.post("/createphone", data);
-        setFormState({ nokw: "", tgl: "", nilai: 0 });
+        const data = { ...printedData };
+        const all = { customer_id: 9, data };
+        console.log("S", all);
+        router.post("/create-invoice", all);
+        setFormState({ nokw: "", date: "", price: 0 });
     };
 
     const handleDeleteRow = (index) => {
@@ -77,41 +77,42 @@ export default function CreateInvoice(props) {
     const [selectedOption, setSelectedOption] = useState(null);
     const [searchQuery, setSearchQuery] = useState("");
 
-    // const handleInputChange = (e) => {
-    //     setSearchQuery(e.target.value);
-    // };
     const resetSelected = () => {
         setSelectedOption(null);
     };
 
-    const inputRef = useRef(null);
-
     const handleOptionClick = (data) => {
-        // setFormState((prevState) => ({ ...prevState, name: data }));
+        setFormState((prevState) => ({ ...prevState, name: data }));
         setSelectedOption(data);
         console.log("data", data);
         console.log("name", name);
         console.log("formstate", formState);
         console.log("search", searchQuery);
         setSearchQuery("");
-        console.log("selectedOpt", selectedOption);
     };
     let total = 0;
     if (printedData.length != 0) {
         total = printedData.reduce(
-            (total, currentItem) => (total = total + currentItem.nilai),
+            (total, currentItem) => (total = total + currentItem.price),
             0
         );
 
-        console.log(printedData.reduce((a, v) => (a = a + v.nilai), 0));
+        console.log(printedData.reduce((a, v) => (a = a + v.price), 0));
         console.log(total);
     }
 
     // console.log("outslect", selectedOption);
 
-    // const filteredOptions = props.grpo.data.filter((data) =>
-    //     data.NumAtCard?.toLowerCase().includes(searchQuery.toLowerCase())
-    // );
+    console.log("SELE", selectedOption);
+
+    const filteredOptions = props.customer.filter((data) =>
+        data.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const handleSearch = (e) => {
+        // setSearchQuery(e.target.value);
+        // console.log(searchQuery);
+    };
 
     // const handleSearch = (e) => {
     //     const value = e.target.value;
@@ -153,77 +154,34 @@ export default function CreateInvoice(props) {
                 <div className="text-gray-900">
                     <div className="grid grid-flow-col gap-4">
                         <div className="my-4 relative">
-                            {selectedOption != null ? (
-                                <div>
-                                    <InputLabel htmlFor="nokw">name</InputLabel>
-                                    <div className="input-group">
-                                        <TextInput
-                                            type="text"
-                                            id="nokw"
-                                            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                                            placeholder="Ketik No.Kwitansi"
-                                            value={selectedOption.NumAtCard}
-                                            readOnly
-                                        />
-                                        <button
-                                            className="btn btn-warning relative"
-                                            onClick={() => resetSelected()}
-                                        >
-                                            reset
-                                        </button>
-                                    </div>
-                                </div>
-                            ) : (
-                                <div className="">
-                                    <InputLabel htmlFor="nokw">name</InputLabel>
-                                    <TextInput
-                                        type="text"
-                                        id="nokw"
-                                        name="nokw"
-                                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                                        placeholder="Ketik No.Kwitansi"
-                                        value={formState.nokw}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-                            )}
-
-                            {searchQuery && (
-                                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-                                    {filteredOptions.map((option, index) => (
-                                        <div
-                                            key={index}
-                                            className="px-4 py-2 cursor-pointer hover:bg-blue-100"
-                                            onClick={handleOptionClick(
-                                                option.NumAtCard
-                                            )}
-                                        >
-                                            {option.NumAtCard}
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                        <div className="form-control my-4">
                             <Test
-                                // data={props.grpo.data}
-                                nameInpt="tgl"
-                                id="tgl"
-                                type="date"
+                                nameInpt="nokw"
+                                type="text"
+                                id="nokw"
                                 label="Phone"
-                                placeholder="+62841627113"
-                                value={formState.tgl}
+                                placeholder="Ketik No.Kwitansi"
+                                value={formState.nokw}
                                 onchange={handleInputChange}
                             ></Test>
                         </div>
                         <div className="form-control my-4">
                             <Test
-                                // data={props.grpo.data}
-                                nameInpt="nilai"
-                                id="nilai"
+                                nameInpt="date"
+                                id="date"
+                                type="date"
+                                label="Phone"
+                                placeholder="+62841627113"
+                                value={formState.date}
+                                onchange={handleInputChange}
+                            ></Test>
+                        </div>
+                        <div className="form-control my-4">
+                            <Test
+                                nameInpt="price"
+                                id="price"
                                 type="number"
                                 label="PO"
-                                value={formState.nilai}
+                                value={formState.price}
                                 onchange={handleInputChange}
                                 placeholder="122.000"
                             ></Test>
@@ -241,40 +199,58 @@ export default function CreateInvoice(props) {
                     >
                         Tambah Data
                     </button>
-                </div>
-                {/* <div>
-                    <h1>Form View</h1>
-                    <div>
-                        <input
-                            type="text"
-                            name="name"
-                            value={formState.name}
-                            onChange={handleInputChange}
-                            placeholder="Name"
-                        />
-                        <input
-                            type="text"
-                            name="phone"
-                            value={formState.phone}
-                            onChange={handleInputChange}
-                            placeholder="Phone"
-                        />
+                    <div className="form-control my-4">
+                        {selectedOption != null ? (
+                            <div>
+                                <InputLabel htmlFor="nokw">name</InputLabel>
+                                <div className="input-group">
+                                    <TextInput
+                                        id="customer"
+                                        type="customer"
+                                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                                        placeholder="Ketik No.Kwitansi"
+                                        value={customerState.name}
+                                        readOnly
+                                    />
+                                    <button
+                                        className="btn btn-warning relative"
+                                        onClick={() => resetSelected()}
+                                    >
+                                        reset
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="">
+                                <InputLabel htmlFor="customer">
+                                    Customer
+                                </InputLabel>
+                                <TextInput
+                                    type="text"
+                                    id="customer"
+                                    name="customer"
+                                    className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                                    placeholder="customer"
+                                    onChange={handleSearch}
+                                />
+                            </div>
+                        )}
                     </div>
-                    <button onClick={handleAddRow}>Add Entry</button>
-                </div> */}
-                {/* <div>
-                    {printedData.map((entry, index) => (
-                        <div key={index}>
-                            Name: {entry.nokw}, Phone: {entry.tgl}
-                            <button onClick={() => handleDeleteRow(index)}>
-                                Delete
-                            </button>
-                            <button onClick={() => handleEditRow(index)}>
-                                Edit
-                            </button>
+                    {searchQuery && (
+                        <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
+                            {filteredOptions.map((option, index) => (
+                                <div
+                                    key={index}
+                                    className="px-4 py-2 cursor-pointer hover:bg-blue-100"
+                                    // onClick={() => handleOptionClick(option)}
+                                >
+                                    {option.name}
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div> */}
+                    )}
+                </div>
+
                 <div className="border-2 p-8 mt-4">
                     <div className="grid grid-flow-col gap-6 justify-between prose max-w-none mb-16">
                         <div className="w-2/4">
@@ -311,7 +287,7 @@ export default function CreateInvoice(props) {
                             <h1 className="text-center">INVOICE</h1>{" "}
                             <div>
                                 <h4>Kepada</h4>
-                                <p>Customer Name</p>
+                                <p>{props.customer[0].name}</p>
                             </div>
                         </div>
                     </div>
@@ -347,10 +323,10 @@ export default function CreateInvoice(props) {
                                                 <tr key={index}>
                                                     <th>{index + 1}</th>
                                                     <td>{entry.nokw},</td>
-                                                    <td>{entry.tgl}</td>
+                                                    <td>{entry.date}</td>
                                                     <td className="text-right">
                                                         <FormatRupiah
-                                                            value={entry.nilai}
+                                                            value={entry.price}
                                                         />
                                                     </td>
                                                     <td className="grid grid-flow-col items-center gap-2">
@@ -396,36 +372,27 @@ export default function CreateInvoice(props) {
                                 <br></br>Mulai jam 13.00 s/d 15.00
                             </p>
                         </div>
-                        <div className="grid grid-rows-4 grid-flow-col">
-                            <h4 className="m-0">Subtotal</h4>
-                            <h4 className="m-0">Pajak (11%)</h4>
-                            <h4 className="m-0">Diskon</h4>
+                        <div className="grid grid-rows-1 grid-flow-col">
                             <h2 className="m-0">Total</h2>
                             <p className="m-0">
                                 : <FormatRupiah value={total} />
                                 ,-
                             </p>
-                            <p className="m-0">
-                                : <FormatRupiah value={(total * 11) / 100} />
-                                ,-
-                            </p>
-                            <p className="m-0">: Rp. 300.000,-</p>
-                            <p className="m-0">
-                                :{" "}
-                                <FormatRupiah
-                                    value={total + (total * 11) / 100}
-                                />
-                                ,-
-                            </p>
                         </div>
                     </div>
-                    <div>
-                        <p>Jakarta, 21 Juni 2023</p>
+                    <div className="prose flex justify-between">
                         <div>
                             <div>
                                 <p>Penerima Barang</p>
-                                <p>Nama Penerima</p>
+                                <p>{auth.user.name}</p>
                             </div>
+                        </div>
+                        <div>
+                            <p>
+                                Jakarta, {dateNow.getDate()}{" "}
+                                {months[dateNow.getMonth()]}{" "}
+                                {dateNow.getFullYear()}
+                            </p>
                             <div>
                                 <p>Nama Customer</p>
                             </div>

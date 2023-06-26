@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@arismun/format-rupiah": "^3.0.0",
+        "@react-pdf/renderer": "^3.1.12",
         "boxicons": "^2.1.4",
         "lottie-react": "^2.4.0"
     }

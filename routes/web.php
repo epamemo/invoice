@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceItemController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -29,8 +30,7 @@ Route::inertia('/404', 'Error/404')->name('error.404');
 Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');
 Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name('page.test2');
 
-
-Route::post('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('create.invoice');
+Route::post('/create-invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
 Route::get('/create-invoice', [InvoiceController::class, 'index'])->middleware(['auth', 'verified'])->name('vcreate.invoice');
 
 Route::get('/welcome', function () {
