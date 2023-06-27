@@ -82,14 +82,14 @@ export default function CreateInvoice(props) {
     };
 
     const handleOptionClick = (data) => {
-        setFormState((prevState) => ({ ...prevState, name: data }));
         setSelectedOption(data);
+        setCustomerState(data);
         console.log("data", data);
-        console.log("name", name);
-        console.log("formstate", formState);
+        console.log("name", data.name);
         console.log("search", searchQuery);
         setSearchQuery("");
     };
+
     let total = 0;
     if (printedData.length != 0) {
         total = printedData.reduce(
@@ -101,17 +101,13 @@ export default function CreateInvoice(props) {
         console.log(total);
     }
 
-    // console.log("outslect", selectedOption);
-
-    console.log("SELE", selectedOption);
-
     const filteredOptions = props.customer.filter((data) =>
         data.name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const handleSearch = (e) => {
-        // setSearchQuery(e.target.value);
-        // console.log(searchQuery);
+        setSearchQuery(e.target.value);
+        console.log(searchQuery);
     };
 
     // const handleSearch = (e) => {
@@ -242,7 +238,7 @@ export default function CreateInvoice(props) {
                                 <div
                                     key={index}
                                     className="px-4 py-2 cursor-pointer hover:bg-blue-100"
-                                    // onClick={() => handleOptionClick(option)}
+                                    onClick={() => handleOptionClick(option)}
                                 >
                                     {option.name}
                                 </div>

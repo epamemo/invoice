@@ -38,8 +38,8 @@ function Sidebar({ children, user, header }) {
                         <ul className="grid gap-y-2">
                             <li>
                                 <Link
-                                    className="justify-center content-center h-14 dark:btn btn btn-primary mb-5 text-white"
-                                    href={route("vcreate.invoice")}
+                                    className="justify-center hover:bg-blue-400 content-center h-14 dark:btn btn btn-primary mb-5 text-white"
+                                    href={route("index.invoice")}
                                     as="button"
                                 >
                                     <box-icon
@@ -84,7 +84,7 @@ function Sidebar({ children, user, header }) {
                                     <>
                                         <Link
                                             className="btn-active btn-ghost "
-                                            href={route("my.news")}
+                                            href={route("history.invoice")}
                                             as="button"
                                         >
                                             <box-icon name="file"></box-icon>
@@ -94,7 +94,7 @@ function Sidebar({ children, user, header }) {
                                 ) : (
                                     <Link
                                         className="  "
-                                        href={route("my.news")}
+                                        href={route("history.invoice")}
                                         as="button"
                                     >
                                         <box-icon name="file"></box-icon>
@@ -107,21 +107,23 @@ function Sidebar({ children, user, header }) {
                                 Data Customer
                             </p>
                             <li>
-                                {header == "History" ? (
+                                {header == "Customer" ? (
                                     <Link
                                         className="btn-active btn-ghost "
-                                        href={route("my.news")}
+                                        href={route("index.customer")}
                                         as="button"
                                     >
-                                        History
+                                        <box-icon name="group"></box-icon>
+                                        Tambah Customer
                                     </Link>
                                 ) : (
                                     <Link
                                         className="  "
-                                        href={route("my.news")}
+                                        href={route("index.customer")}
                                         as="button"
                                     >
-                                        History
+                                        <box-icon name="group"></box-icon>
+                                        Tambah Customer
                                     </Link>
                                 )}
                                 {/* <a>Sidebar Item 1</a> */}

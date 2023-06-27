@@ -26,7 +26,7 @@ export default function Dashboard(props) {
 
     useEffect(() => {
         if (!props.myNews) {
-            router.get("my.news");
+            router.get("history.invoice");
         }
         console.log("props", props);
     }, []);

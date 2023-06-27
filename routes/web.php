@@ -23,15 +23,17 @@ use Inertia\Inertia;
 // Route::post('/createNews', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
 // Route::get('/create-news', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('page.news');
 Route::post('/createphone', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.customer');
-Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
+Route::get('/history', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
 Route::get('/dashboard', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::inertia('/404', 'Error/404')->name('error.404');
 Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');
 Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name('page.test2');
 
+Route::post('/create-customer', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.customer');
+Route::get('/create-customer', [CustomerController::class, 'create'])->middleware(['auth', 'verified'])->name('index.customer');
 Route::post('/create-invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
-Route::get('/create-invoice', [InvoiceController::class, 'index'])->middleware(['auth', 'verified'])->name('vcreate.invoice');
+Route::get('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('index.invoice');
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [

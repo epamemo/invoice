@@ -8,8 +8,8 @@ export default function History(props) {
     console.log(props);
 
     useEffect(() => {
-        if (!props.myNews) {
-            router.get("my.news");
+        if (!props.invoice) {
+            router.get("history.invoice");
         }
         console.log("props", props);
     }, []);
@@ -27,21 +27,22 @@ export default function History(props) {
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Description</th>
+                                <th>Nama Customer</th>
+                                <th>Tanggal</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {props.myNews.map((news, i) => {
+                            {props.invoice.map((inv, i) => {
+                                console.log(inv);
                                 return (
                                     <tr key={i}>
                                         <th>{i + 1}</th>
-                                        <td>{news.title}</td>
-                                        <td>{news.category}</td>
-                                        <td>{news.description}</td>
-                                        <td>{news.description}</td>
+                                        <td>{inv.name}</td>
+                                        <td>{inv.date}</td>
+                                        <td>{inv.status}</td>
+                                        <td>{inv.description}</td>
                                     </tr>
                                 );
                             })}

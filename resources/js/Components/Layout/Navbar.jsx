@@ -52,7 +52,7 @@ const Navbar = ({ user, children }) => {
                                 <li>
                                     <Link
                                         className="justify-between"
-                                        href={route("my.news")}
+                                        href={route("history.invoice")}
                                         as="button"
                                     >
                                         <box-icon name="home"></box-icon>
