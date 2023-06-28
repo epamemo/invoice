@@ -77,9 +77,12 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
+        $customers = Customer::where('id',$request->id)->get();
+        return Inertia::render('Dashboard', [
+            'customer' => $customers,
+        ]);
     }
 
     /**
@@ -87,7 +90,11 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        Customer::where('id', $id)->update([
+            'name' => $request->name,
+            'phone' => $request->phone
+        ]);
+        return to_route('index.customer');
     }
 
     /**

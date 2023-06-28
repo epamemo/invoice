@@ -6,11 +6,9 @@ import CardDashboard from "@/Components/Layout/CardDashboard";
 import { FormatRupiah } from "@arismun/format-rupiah";
 
 export default function Dashboard(props) {
-    console.log(props);
-
     useEffect(() => {
         if (!props.grpo.data) {
-            router.get("error.404");
+            router.get("/404");
         }
         console.log("props", props);
     }, []);

@@ -6,15 +6,15 @@ import { BoxIconElement } from "boxicons";
 
 export default function Guest({ children }) {
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center pt-6 sm:pt-0 bg-gray-100">
-            <div className="grid grid-cols-2">
-                <div className="flex h-screen col-auto">
+        <div className="min-h-screen flex flex-col pt-0 bg-gray-100">
+            <div className="grid lg:grid-cols-2 grid-flow-row">
+                <div className="flex lg:h-screen h-fit col-auto">
                     <label
                         htmlFor="my-drawer-2"
                         className="drawer-overlay"
                     ></label>
-                    <div className="mr-2 ml-4 my-4 p-4 w-full bg-slate-200 text-base-content  rounded-2xl">
-                        <div className="flex align-middle items-center h-fit mb-12">
+                    <div className="lg:mr-2 lg:ml-4 lg:my-4 mx-4 mt-4 p-4 w-full bg-slate-200 text-base-content rounded-2xl">
+                        <div className="flex align-middle justify-center lg:justify-normal items-center h-fit lg:mb-12">
                             <box-icon
                                 name="chart"
                                 type="solid"
@@ -26,7 +26,7 @@ export default function Guest({ children }) {
                                 A/P Invoice.
                             </p>
                         </div>
-                        <div className="text-center px-8">
+                        <div className="text-center lg:px-8 lg:block hidden">
                             {/* <img src={SvgData} alt="" /> */}
                             <img
                                 src={SvgOnline}

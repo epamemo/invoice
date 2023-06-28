@@ -1,56 +1,34 @@
-import { router } from "@inertiajs/react";
-import React, { useEffect, useState } from "react";
-
-function FormView() {
-    const [formState, setFormState] = useState({ name: "", phone: "" });
-    const [printedData, setPrintedData] = useState([]);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormState((prevState) => ({ ...prevState, [name]: value }));
-    };
-
-    const handleSubmit = () => {
-        setPrintedData((prevState) => [...prevState, formState]);
-        setFormState({ name: "", phone: "" });
-    };
-
-    return (
-        <div>
-            <h1>Form View</h1>
-            <div>
-                <input
-                    type="text"
-                    name="name"
-                    value={formState.name}
-                    onChange={handleInputChange}
-                    placeholder="Name"
-                />
-                <input
-                    type="text"
-                    name="phone"
-                    value={formState.phone}
-                    onChange={handleInputChange}
-                    placeholder="Phone"
-                />
-            </div>
-            <button onClick={handleSubmit}>Add Entry</button>
-            <div>
-                {printedData.map((entry, index) => (
-                    <div key={index}>
-                        Name: {entry.name}, Phone: {entry.phone}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-}
+import React, { useState } from "react";
 
 function FormAdd() {
+    const [value, setValue] = useState("");
+
+    const handleChange = (e) => {
+        const inputValue = e.target.value;
+        const formattedValue = formatCurrency(inputValue);
+        setValue(formattedValue);
+    };
+
+    const formatCurrency = (value) => {
+        // Remove non-digit characters
+        const numericValue = value.replace(/[^0-9]/g, "");
+
+        // Format the numeric value as currency
+        const formattedValue = new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: "USD",
+        }).format(numericValue / 100);
+
+        return formattedValue;
+    };
+
     return (
-        <div>
-            <FormView />
-        </div>
+        <input
+            type="text"
+            value={value}
+            onChange={handleChange}
+            placeholder="$0.00"
+        />
     );
 }
 

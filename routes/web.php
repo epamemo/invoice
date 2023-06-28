@@ -32,6 +32,7 @@ Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name
 
 Route::post('/create-customer', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.customer');
 Route::get('/create-customer', [CustomerController::class, 'create'])->middleware(['auth', 'verified'])->name('index.customer');
+Route::get('/create-customers', [CustomerController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.customer');
 Route::post('/create-invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
 Route::get('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('index.invoice');
 

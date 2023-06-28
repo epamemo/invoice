@@ -6,9 +6,14 @@ import { Head, router, usePage } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
 import { FormatRupiah } from "@arismun/format-rupiah";
+import "boxicons";
+import { formatRupiah } from "@/Helpers/FormatInput";
 
 export default function CreateInvoice(props) {
-    const [notification, setNotification] = useState(false);
+    const [notification, setNotification] = useState({
+        show: false,
+        statusNotif: "",
+    });
     const [formState, setFormState] = useState({
         nokw: "",
         date: "",
@@ -35,12 +40,26 @@ export default function CreateInvoice(props) {
 
     let dateNow = new Date();
     const { auth } = usePage().props;
+    // const handleInputChange = (e) => {
+    //     if (e.target.name == "price") {
+    //         const { name, value } = e.target;
+    //         setFormState((prevState) => ({
+    //             ...prevState,
+    //             [name]: parseInt(value),
+    //         }));
+    //     } else {
+    //         const { name, value } = e.target;
+    //         setFormState((prevState) => ({ ...prevState, [name]: value }));
+    //     }
+    // };
+
     const handleInputChange = (e) => {
-        if (e.target.name == "price") {
+        if (e.target.name === "price") {
             const { name, value } = e.target;
+            const formattedValue = formatRupiah(value, "Rp. ");
             setFormState((prevState) => ({
                 ...prevState,
-                [name]: parseInt(value),
+                [name]: formattedValue,
             }));
         } else {
             const { name, value } = e.target;
@@ -51,19 +70,31 @@ export default function CreateInvoice(props) {
     const handleAddRow = () => {
         console.log(formState);
         if (formState.nokw && formState.date && formState.price) {
-            setPrintedData((prevState) => [...prevState, formState]);
+            const unformattedPrice = formState.price.replace(/[^0-9]/g, ""); // Remove non-digit characters
+            const newRow = {
+                nokw: formState.nokw,
+                date: formState.date,
+                price: parseInt(unformattedPrice),
+            };
+            setPrintedData((prevState) => [...prevState, newRow]);
             setFormState({ nokw: "", date: "", price: 0 });
         }
     };
 
+    console.log(customerState);
+
     const handleSubmit = () => {
         const data = { ...printedData };
-        const all = { customer_id: 9, data };
-        console.log("S", all);
-        router.post("/create-invoice", all);
-        setFormState({ nokw: "", date: "", price: 0 });
+        if (customerState) {
+            const all = { customer_id: 9, data };
+            router.post("/create-invoice", all);
+            setFormState({ nokw: "", date: "", price: 0 });
+        } else {
+            setNotification({ show: true, statusNotif: "warning" });
+            props.flash.message = "Isi Nama Customer";
+        }
     };
-
+    console.log(notification);
     const handleDeleteRow = (index) => {
         setPrintedData((prevState) => prevState.filter((_, i) => i !== index));
     };
@@ -82,7 +113,7 @@ export default function CreateInvoice(props) {
     };
 
     const handleOptionClick = (data) => {
-        setSelectedOption(data);
+        setSelectedOption(data.name);
         setCustomerState(data);
         console.log("data", data);
         console.log("name", data.name);
@@ -123,25 +154,14 @@ export default function CreateInvoice(props) {
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
-            {notification && (
+            {notification.show && (
                 <div
                     onClick={() => setNotification(false)}
-                    className="alert alert-success shadow-lg absolute w-auto"
+                    className={`alert alert-${notification.statusNotif} shadow-lg w-auto`}
                 >
-                    <div>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="stroke-current flex-shrink-0 h-6 w-6"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                        </svg>
+                    <div className="flex gap-2">
+                        <box-icon name="error" />
+
                         <span> {props.flash.message}</span>
                     </div>
                 </div>
@@ -154,7 +174,7 @@ export default function CreateInvoice(props) {
                                 nameInpt="nokw"
                                 type="text"
                                 id="nokw"
-                                label="Phone"
+                                label="No. Kwitansi"
                                 placeholder="Ketik No.Kwitansi"
                                 value={formState.nokw}
                                 onchange={handleInputChange}
@@ -165,8 +185,8 @@ export default function CreateInvoice(props) {
                                 nameInpt="date"
                                 id="date"
                                 type="date"
-                                label="Phone"
-                                placeholder="+62841627113"
+                                label="Tanggal"
+                                placeholder="01/12/2000"
                                 value={formState.date}
                                 onchange={handleInputChange}
                             ></Test>
@@ -175,11 +195,11 @@ export default function CreateInvoice(props) {
                             <Test
                                 nameInpt="price"
                                 id="price"
-                                type="number"
-                                label="PO"
+                                type="text"
+                                label="Nilai Kwitansi"
                                 value={formState.price}
                                 onchange={handleInputChange}
-                                placeholder="122.000"
+                                placeholder="Rp. 000.000 ,-"
                             ></Test>
                         </div>
                     </div>
@@ -198,13 +218,13 @@ export default function CreateInvoice(props) {
                     <div className="form-control my-4">
                         {selectedOption != null ? (
                             <div>
-                                <InputLabel htmlFor="nokw">name</InputLabel>
+                                <InputLabel htmlFor="nokw">Customer</InputLabel>
                                 <div className="input-group">
                                     <TextInput
                                         id="customer"
                                         type="customer"
                                         className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                                        placeholder="Ketik No.Kwitansi"
+                                        placeholder="PT. Nama Perusahaan"
                                         value={customerState.name}
                                         readOnly
                                     />
@@ -283,7 +303,7 @@ export default function CreateInvoice(props) {
                             <h1 className="text-center">INVOICE</h1>{" "}
                             <div>
                                 <h4>Kepada</h4>
-                                <p>{props.customer[0].name}</p>
+                                <p>{selectedOption}</p>
                             </div>
                         </div>
                     </div>
@@ -390,7 +410,7 @@ export default function CreateInvoice(props) {
                                 {dateNow.getFullYear()}
                             </p>
                             <div>
-                                <p>Nama Customer</p>
+                                <p>{selectedOption}</p>
                             </div>
                         </div>
                     </div>

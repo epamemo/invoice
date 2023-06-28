@@ -114,7 +114,7 @@ function Sidebar({ children, user, header }) {
                                         as="button"
                                     >
                                         <box-icon name="group"></box-icon>
-                                        Tambah Customer
+                                        Data Customer
                                     </Link>
                                 ) : (
                                     <Link
@@ -123,6 +123,28 @@ function Sidebar({ children, user, header }) {
                                         as="button"
                                     >
                                         <box-icon name="group"></box-icon>
+                                        Data Customer
+                                    </Link>
+                                )}
+                                {/* <a>Sidebar Item 1</a> */}
+                            </li>
+                            <li>
+                                {header == "Customer" ? (
+                                    <Link
+                                        className="btn-active btn-ghost "
+                                        href={route("index.customer")}
+                                        as="button"
+                                    >
+                                        <box-icon name="user-plus"></box-icon>
+                                        Tambah Customer
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        className="  "
+                                        href={route("index.customer")}
+                                        as="button"
+                                    >
+                                        <box-icon name="user-plus"></box-icon>
                                         Tambah Customer
                                     </Link>
                                 )}
