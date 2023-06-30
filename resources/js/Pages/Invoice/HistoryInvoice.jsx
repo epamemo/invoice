@@ -15,8 +15,6 @@ export default function History(props) {
         console.log("props", props);
     }, []);
 
-    // setInterval(setNotification(false), 2000);
-
     return (
         <AuthenticatedLayout2 user={props.auth.user} header="History">
             <Head title="History" />
@@ -49,7 +47,7 @@ export default function History(props) {
                                             />
                                         </td>
                                         <td>{inv.status}</td>
-                                        <td>
+                                        <td className="flex gap-3">
                                             <Link
                                                 className="btn btn-accent"
                                                 href={route("print.invoice")}

@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         ->join('invoice_items as itm', 'itm.invoice_id','invoices.id')
         ->join('customers as c','c.id','invoices.customer_id')
         ->groupby('c.name','invoices.id','invoices.date','invoices.status','invoices.total_price')->where('user_id', auth()->user()->id)->get();
-        return Inertia::render('User/History',[
+        return Inertia::render('Invoice/HistoryInvoice',[
             'title' => 'History Tanda Terima',
             'invoice' => $invoiceu
         ]);
@@ -73,12 +73,10 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice, InvoiceItem $invoiceit, Customer $customer, Request $request)
     {
-        $invoiceItem=InvoiceItem::select()->where('invoice_id',1)->get();
+        $invoiceItem=$invoiceit->select()->where('invoice_id',1)->get();
         $inv= $invoice->find($request->id);
         $cs = $customer->find($inv->customer_id);
 
-        // dd($invoiceItem,$inv,$cs);
-        
         return Inertia::render('Invoice/EditInvoice', [
             'title' => 'Edit Invoice',
             'invoice_item' => $invoiceItem,

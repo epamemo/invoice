@@ -87,7 +87,9 @@ export default function PrintInvoice(props) {
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
-            <button onClick={handlePrint}>Export PDF</button>
+            <button onClick={handlePrint} className="btn btn-primary">
+                Export PDF
+            </button>
             <div ref={componentRef}>
                 <div className=" p-8 ">
                     <div className="grid grid-flow-col gap-6 justify-between prose max-w-none mb-16">

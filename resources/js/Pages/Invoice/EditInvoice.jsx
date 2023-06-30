@@ -205,12 +205,14 @@ export default function EditInvoice(props) {
                         className="btn btn-primary"
                         onClick={() => handleSubmit()}
                     >
+                        <box-icon name="chevron-down" color="#B4BFFE" />
                         Submit
                     </button>
                     <button
                         className="btn btn-primary mx-3"
                         onClick={handleAddRow}
                     >
+                        <box-icon name="plus" />
                         Tambah Data
                     </button>
                     <div className="form-control my-4">

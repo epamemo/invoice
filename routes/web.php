@@ -39,7 +39,7 @@ Route::get('/customer', [CustomerController::class, 'index'])->middleware(['auth
 
 Route::post('/create-invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
 Route::get('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('index.invoice');
-Route::get('/history', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
+Route::get('/history-invoice', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
 Route::get('/edit-invoice', [InvoiceController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.invoice');
 Route::post('/edit-invoice', [InvoiceController::class, 'update'])->middleware(['auth', 'verified'])->name('update.invoice');
 Route::post('/delete-invoice', [InvoiceController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.invoice');

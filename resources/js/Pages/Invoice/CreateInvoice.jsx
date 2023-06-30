@@ -211,12 +211,14 @@ export default function CreateInvoice(props) {
                         className="btn btn-primary"
                         onClick={() => handleSubmit()}
                     >
+                        <box-icon name="chevron-down" color="#B4BFFE" />
                         Submit
                     </button>
                     <button
                         className="btn btn-outline mx-3"
                         onClick={handleAddRow}
                     >
+                        <box-icon name="plus" />
                         Tambah Data
                     </button>
                     <div className="form-control my-4">
@@ -236,7 +238,7 @@ export default function CreateInvoice(props) {
                                         className="btn btn-warning relative"
                                         onClick={() => resetSelected()}
                                     >
-                                        reset
+                                        <box-icon name="reset" />
                                     </button>
                                 </div>
                             </div>
