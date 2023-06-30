@@ -68,7 +68,7 @@ function Sidebar({ children, user, header }) {
                                 ) : (
                                     <>
                                         <Link
-                                            className="  "
+                                            className="btn-ghost"
                                             href={route("dashboard")}
                                             as="button"
                                         >
@@ -93,7 +93,7 @@ function Sidebar({ children, user, header }) {
                                     </>
                                 ) : (
                                     <Link
-                                        className="  "
+                                        className="btn-ghost"
                                         href={route("history.invoice")}
                                         as="button"
                                     >
@@ -107,7 +107,7 @@ function Sidebar({ children, user, header }) {
                                 Data Customer
                             </p>
                             <li>
-                                {header == "Customer" ? (
+                                {header == "Data Customer" ? (
                                     <Link
                                         className="btn-active btn-ghost "
                                         href={route("index.customer")}
@@ -118,7 +118,7 @@ function Sidebar({ children, user, header }) {
                                     </Link>
                                 ) : (
                                     <Link
-                                        className="  "
+                                        className="btn-ghost"
                                         href={route("index.customer")}
                                         as="button"
                                     >
@@ -129,10 +129,10 @@ function Sidebar({ children, user, header }) {
                                 {/* <a>Sidebar Item 1</a> */}
                             </li>
                             <li>
-                                {header == "Customer" ? (
+                                {header == "Pembuatan Customer" ? (
                                     <Link
                                         className="btn-active btn-ghost "
-                                        href={route("index.customer")}
+                                        href={route("create.customer")}
                                         as="button"
                                     >
                                         <box-icon name="user-plus"></box-icon>
@@ -140,8 +140,8 @@ function Sidebar({ children, user, header }) {
                                     </Link>
                                 ) : (
                                     <Link
-                                        className="  "
-                                        href={route("index.customer")}
+                                        className="btn-ghost"
+                                        href={route("create.customer")}
                                         as="button"
                                     >
                                         <box-icon name="user-plus"></box-icon>

@@ -1,7 +1,8 @@
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
-import { Head, router } from "@inertiajs/react";
+import { FormatRupiah } from "@arismun/format-rupiah";
+import { Head, Link, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
 export default function History(props) {
@@ -29,6 +30,7 @@ export default function History(props) {
                                 <th>No</th>
                                 <th>Nama Customer</th>
                                 <th>Tanggal</th>
+                                <th>Total Nilai</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -41,8 +43,41 @@ export default function History(props) {
                                         <th>{i + 1}</th>
                                         <td>{inv.name}</td>
                                         <td>{inv.date}</td>
+                                        <td>
+                                            <FormatRupiah
+                                                value={inv.total_price}
+                                            />
+                                        </td>
                                         <td>{inv.status}</td>
-                                        <td>{inv.description}</td>
+                                        <td>
+                                            <Link
+                                                className="btn btn-accent"
+                                                href={route("print.invoice")}
+                                                method="get"
+                                                data={{ id: inv.id }}
+                                                as="button"
+                                            >
+                                                Print
+                                            </Link>
+                                            <Link
+                                                className="btn btn-accent"
+                                                href={route("edit.invoice")}
+                                                method="get"
+                                                data={{ id: inv.id }}
+                                                as="button"
+                                            >
+                                                Edit
+                                            </Link>
+                                            <Link
+                                                className="btn btn-ghost"
+                                                href={route("delete.invoice")}
+                                                method="post"
+                                                data={{ id: inv.id }}
+                                                as="button"
+                                            >
+                                                Delete
+                                            </Link>
+                                        </td>
                                     </tr>
                                 );
                             })}

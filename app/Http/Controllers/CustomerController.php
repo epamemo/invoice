@@ -16,7 +16,7 @@ class CustomerController extends Controller
     {
         $customers = Customer::get();
         return Inertia::render('Customer/IndexCustomer', [
-            'title' => 'Pembuatan Customer',
+            'title' => 'Data Customer',
             'customer' => $customers
         ]);
     }
@@ -57,7 +57,7 @@ class CustomerController extends Controller
         $news->phone = $request->phone;
         $news->save();
 
-        return redirect()->back()->with('message', 'berita berhasil dibuat');
+        return to_route('index.customer');
         // dd($request->all());
         // $data = $request->all();
         // foreach ($request as $key => $value) {

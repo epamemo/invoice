@@ -12,7 +12,7 @@ export default function Dashboard(props) {
         }
         console.log("props", props);
     }, []);
-
+    console.log(props.invoice);
     // setInterval(setNotification(false), 2000);
 
     return (
@@ -26,36 +26,40 @@ export default function Dashboard(props) {
                         name="Total Data Penerimaan Barang"
                     />
                     <CardDashboard
-                        // data={props.grpo.data.length}
+                        data={props.customer.length}
                         name="Total Data Customer"
                     />
                     <CardDashboard
-                        // data={props.grpo.data.length}
+                        data={props.invoiceit.length}
                         name="Total Data Kwitansi"
                     />
                 </div>
                 <div className="overflow-x-auto h-96 rounded-2xl border-2">
                     <table className="table table-pin-rows table-pin-cols">
+                        {/* head */}
                         <thead>
                             <tr className="z-0">
                                 <th>No</th>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                <th>Nama Customer</th>
+                                <th>Tanggal</th>
+                                <th>Total Nilai</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {props.invoice.map((gr, i) => {
+                            {props.invoice.map((inv, i) => {
+                                console.log(inv);
                                 return (
                                     <tr key={i} className="hover bg-gray-100">
                                         <th>{i + 1}</th>
-                                        <td>{gr.DocNum}</td>
-                                        <td>{gr.CardName}</td>
-                                        <td>{gr.NumAtCard}</td>
+                                        <td>{inv.name}</td>
+                                        <td>{inv.date}</td>
                                         <td>
-                                            <FormatRupiah value={gr.DocTotal} />
+                                            <FormatRupiah
+                                                value={inv.total_price}
+                                            />
                                         </td>
+                                        <td>{inv.status}</td>
                                     </tr>
                                 );
                             })}
