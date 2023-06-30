@@ -42,7 +42,7 @@ Route::get('/create-invoice', [InvoiceController::class, 'create'])->middleware(
 Route::get('/history', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
 Route::get('/edit-invoice', [InvoiceController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.invoice');
 Route::post('/edit-invoice', [InvoiceController::class, 'update'])->middleware(['auth', 'verified'])->name('update.invoice');
-Route::post('/delete-invoice', [InvoiceController::class, 'delete'])->middleware(['auth', 'verified'])->name('delete.invoice');
+Route::post('/delete-invoice', [InvoiceController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.invoice');
 Route::get('/print-invoice', [InvoiceController::class, 'print'])->middleware(['auth', 'verified'])->name('print.invoice');
 
 Route::get('/welcome', function () {

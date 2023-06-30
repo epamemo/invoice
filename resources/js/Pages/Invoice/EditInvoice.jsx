@@ -15,13 +15,15 @@ export default function EditInvoice(props) {
         statusNotif: "",
     });
     const [formState, setFormState] = useState({
+        invoice_id: props.invoice.id,
         nokw: "",
         date: "",
         price: 0,
     });
 
     const [customerState, setCustomerState] = useState(props.cs);
-    console.log("cs state", customerState);
+    console.log("form", formState);
+    console.log("cs state", props.invoice);
     const [printedData, setPrintedData] = useState(props.invoice_item);
     console.log("printed", printedData);
     const months = [
@@ -41,18 +43,6 @@ export default function EditInvoice(props) {
 
     let dateNow = new Date(props.invoice.date);
     const { auth } = usePage().props;
-    // const handleInputChange = (e) => {
-    //     if (e.target.name == "price") {
-    //         const { name, value } = e.target;
-    //         setFormState((prevState) => ({
-    //             ...prevState,
-    //             [name]: parseInt(value),
-    //         }));
-    //     } else {
-    //         const { name, value } = e.target;
-    //         setFormState((prevState) => ({ ...prevState, [name]: value }));
-    //     }
-    // };
 
     console.log(props);
 
@@ -75,6 +65,7 @@ export default function EditInvoice(props) {
         if (formState.nokw && formState.date && formState.price) {
             const unformattedPrice = formState.price.replace(/[^0-9]/g, ""); // Remove non-digit characters
             const newRow = {
+                invoice_id: props.invoice.id,
                 nokw: formState.nokw,
                 date: formState.date,
                 price: parseInt(unformattedPrice),
@@ -88,6 +79,7 @@ export default function EditInvoice(props) {
         const data = { ...printedData };
         if (customerState) {
             const all = {
+                id: props.invoice.id,
                 customer_id: customerState.id,
                 data,
                 total_price: total,

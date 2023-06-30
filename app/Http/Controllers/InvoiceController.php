@@ -96,30 +96,31 @@ class InvoiceController extends Controller
         $data = $request->data;
         $customerId = $request->customer_id;
         $userId = $request->user()->id;
-        $date = $request->date;
         $totalPrice = $request->total_price;
 
-        dd($request->$data);
+        // dd($request);
+        DB::table('invoices')
+            ->where('id', $request->id)
+            ->update([
+                'customer_id' => $customerId,
+                'user_id' => $userId,
+                'total_price' => $totalPrice,
+            ]);
 
-        // Update the invoice
-        // DB::table('invoices')
-        //     ->where('id', $request->id)
-        //     ->update([
-        //         'customer_id' => $customerId,
-        //         'user_id' => $userId,
-        //         'date' => $date,
-        //         'total_price' => $totalPrice,
-        //         'status' => 'Done'
-        //     ]);
+        DB::table('invoice_items')
+            ->where('invoice_id', $request->id)
+            ->delete();
 
-        // DB::table('invoice_items')
-        //     ->where('invoice_id', $request->id)
-        //     ->delete();
-
+        // dd($data);
         foreach ($data as $key => $val) {
             $data[$key]['invoice_id'] = $request->id;
+                unset($val['id']);
+                unset($val['created_at']);
+                unset($val['updated_at']);
+                $data[$key] = $val;
         }
-        // DB::table('invoice_items')->insert($data);
+
+        DB::table('invoice_items')->insert($data);
 
         return to_route('history.invoice');
     }
@@ -133,9 +134,18 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        
+        DB::table('invoice_items')
+            ->where('invoice_id', $request->id)
+            ->delete();
+
+        DB::table('invoices')
+        ->where('id', $request->id)
+        ->delete();
+
+        return to_route('history.invoice');
     }
 
     public function print(Invoice $invoice, InvoiceItem $invoiceit, Customer $customer, Request $request)
@@ -147,7 +157,7 @@ class InvoiceController extends Controller
         // dd($invoiceItem,$inv,$cs);
         
         return Inertia::render('Invoice/PrintInvoice', [
-            'title' => 'Edit Invoice',
+            'title' => 'Print Invoice',
             'invoice_item' => $invoiceItem,
             'invoice'=>$inv,
             'customer'=>$customer->get(),

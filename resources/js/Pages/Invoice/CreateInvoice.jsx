@@ -214,7 +214,7 @@ export default function CreateInvoice(props) {
                         Submit
                     </button>
                     <button
-                        className="btn btn-primary mx-3"
+                        className="btn btn-outline mx-3"
                         onClick={handleAddRow}
                     >
                         Tambah Data
