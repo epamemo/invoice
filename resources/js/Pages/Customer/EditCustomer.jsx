@@ -7,15 +7,15 @@ import { useRef, useState } from "react";
 import Test from "@/Pages/User/Test";
 import { formatPhone } from "@/Helpers/FormatInput";
 
-export default function CreateInvoice(props) {
+export default function EditInvoice(props) {
     const [notification, setNotification] = useState({
         show: false,
         statusNotif: "",
     });
     const [customer, setCustomer] = useState({
-        id: null,
-        name: "",
-        phone: "",
+        id: props.customer.id,
+        name: props.customer.name,
+        phone: props.customer.phone,
     });
 
     const handleInputChange = (e) => {
@@ -28,20 +28,22 @@ export default function CreateInvoice(props) {
         }
         console.log(customer);
     };
-    console.log(props.flash);
 
     const handleSubmit = () => {
-        if (customer.name && customer.phone) {
-            router.post("/create-customer", customer);
-            setCustomer({ name: "", phone: "" });
-        } else {
-            setNotification({ show: true, statusNotif: "warning" });
-            props.flash.message = `Isi
-            ${customer.name == "" ? "Nama Customer" : ""}
-            ${customer.name == "" && customer.phone == "" ? " & " : ""}
-            ${customer.phone == "" ? "Kontak Customer" : ""}`;
-        }
+        router.post("/edit-customers", customer);
     };
+
+    // const handleSubmit = () => {
+    //     if (customer.id === null) {
+    //         if (customer.name && customer.phone) {
+    //             router.post("/create-customer", customer);
+    //             setCustomer({ name: "", phone: "" });
+    //         } else {
+    //             setNotification({ show: true, statusNotif: "warning" });
+    //             props.flash.message = "Isi Nama Customer";
+    //         }
+    //     } else router.post(`/edit-customer/${customer.id}`, customer);
+    // };
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
@@ -88,6 +90,9 @@ export default function CreateInvoice(props) {
                         onClick={() => handleSubmit()}
                     >
                         Submit
+                    </button>
+                    <button className="btn btn-primary mx-3">
+                        Tambah Data
                     </button>
                 </div>
             </div>

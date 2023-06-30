@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+
 class CustomerController extends Controller
 {
     /**
@@ -13,18 +14,22 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::get();
+        return Inertia::render('Customer/IndexCustomer', [
+            'title' => 'Pembuatan Customer',
+            'customer' => $customers
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    
+
     public function create(Customer $customer)
     {
         $customers = $customer::get();
         $lastid = $customer::select('id')->latest()->get();
-        return Inertia::render('Customer/CreateCustomer',[
+        return Inertia::render('Customer/CreateCustomer', [
             'title' => 'Pembuatan Customer',
             'lastid' => $lastid,
             'customer' => $customers
@@ -56,13 +61,13 @@ class CustomerController extends Controller
         // dd($request->all());
         // $data = $request->all();
         // foreach ($request as $key => $value) {
-            // $customer = new Customer();
-            // $customer->name = $data->name;
-            // $customer->phone = $data->phone;
-            // $customer->save();
+        // $customer = new Customer();
+        // $customer->name = $data->name;
+        // $customer->phone = $data->phone;
+        // $customer->save();
         // }
         // DB::table('customers')->insert($data);
-            
+
         // return redirect()->back()->with('message', 'berita berhasil dibuat');
     }
 
@@ -77,20 +82,20 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(Customer $customers, Request $request)
     {
-        $customers = Customer::where('id',$request->id)->get();
-        return Inertia::render('Dashboard', [
-            'customer' => $customers,
+        return Inertia::render('Customer/EditCustomer', [
+            'title' => 'Edit Customer',
+            'customer' => $customers->find($request->id)
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        Customer::where('id', $id)->update([
+        Customer::where('id', $request->id)->update([
             'name' => $request->name,
             'phone' => $request->phone
         ]);
@@ -100,8 +105,10 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $customers = Customer::find($request->id);
+        $customers->delete();
+        return redirect()->back()->with('message', 'berita berhasil dihapus');
     }
 }

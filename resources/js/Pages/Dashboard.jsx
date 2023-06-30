@@ -7,7 +7,7 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 
 export default function Dashboard(props) {
     useEffect(() => {
-        if (!props.grpo.data) {
+        if (!props.invoice) {
             router.get("/404");
         }
         console.log("props", props);
@@ -22,16 +22,16 @@ export default function Dashboard(props) {
             <div className="pl-2 pr-4 ">
                 <div className="flex gap-3 mb-3">
                     <CardDashboard
-                        data={props.grpo.total}
-                        name="Total Data GRPO"
+                        data={props.invoice.length}
+                        name="Total Data Penerimaan Barang"
                     />
                     <CardDashboard
-                        data={props.grpo.data.length}
-                        name="Total Data grpo.data"
+                        // data={props.grpo.data.length}
+                        name="Total Data Customer"
                     />
                     <CardDashboard
-                        data={props.grpo.data.length}
-                        name="Total Data grpo.data"
+                        // data={props.grpo.data.length}
+                        name="Total Data Kwitansi"
                     />
                 </div>
                 <div className="overflow-x-auto h-96 rounded-2xl border-2">
@@ -46,7 +46,7 @@ export default function Dashboard(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {props.grpo.data.map((gr, i) => {
+                            {props.invoice.map((gr, i) => {
                                 return (
                                     <tr key={i} className="hover bg-gray-100">
                                         <th>{i + 1}</th>

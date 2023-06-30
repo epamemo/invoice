@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\News;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -16,11 +17,13 @@ class NewsController extends Controller
     public function index()
     {
         $user = User::all();
-        $grpo = DB::connection('db_sap')->table('OPDN')->where('DocStatus','=','O')->paginate(20);
+        $invoice = Invoice::all();
+        // $grpo = DB::connection('db_sap')->table('OPDN')->where('DocStatus','=','O')->paginate(20);
         // dd($grpo);
-        return Inertia::render('User/Dashboard',[
+        return Inertia::render('User/Dashboard', [
             'title' => 'Dashboard',
-            'grpo' => $grpo,
+            'invoice' => $invoice,
+            // 'grpo' => $grpo,
             'userData' => $user
         ]);
 
@@ -64,7 +67,7 @@ class NewsController extends Controller
     public function show(News $news)
     {
         $myNews = $news::where('author', auth()->user()->email)->get();
-        return Inertia::render('User/History',[
+        return Inertia::render('User/History', [
             'myNews' => $myNews
         ]);
     }

@@ -86,7 +86,11 @@ export default function CreateInvoice(props) {
     const handleSubmit = () => {
         const data = { ...printedData };
         if (customerState) {
-            const all = { customer_id: 9, data };
+            const all = {
+                customer_id: customerState.id,
+                data,
+                total_price: total,
+            };
             router.post("/create-invoice", all);
             setFormState({ nokw: "", date: "", price: 0 });
         } else {
