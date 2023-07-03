@@ -89,7 +89,7 @@ export default function EditInvoice(props) {
                         className="btn btn-primary"
                         onClick={() => handleSubmit()}
                     >
-                        <box-icon name="chevron-down" color="#B4BFFE" />
+                        <box-icon name="save" color="#B4BFFE" />
                         Submit
                     </button>
                 </div>

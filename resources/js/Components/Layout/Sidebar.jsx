@@ -6,7 +6,7 @@ function Sidebar({ children, user, header }) {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content mb-4 rounded-3xl mt-4">
+            <div className="drawer-content mb-4 pb-4 rounded-3xl mt-4">
                 <Navbar user={user}>
                     <label
                         htmlFor="my-drawer-2"

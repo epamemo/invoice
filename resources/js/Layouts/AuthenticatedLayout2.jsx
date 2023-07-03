@@ -11,9 +11,8 @@ export default function Authenticated({ user, header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen dark:bg-slate-900 bg-gray-100">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
             <Head title={header} />
-
             <Sidebar user={user} header={header}>
                 <main className="bg-white p-6 mb-4 ml-2 mr-4 rounded-2xl">
                     {header && (
