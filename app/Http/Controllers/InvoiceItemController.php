@@ -45,7 +45,8 @@ class InvoiceItemController extends Controller
         }
         DB::table('invoice_items')->insert($data);
 
-        return to_route('history.invoice');
+        return redirect()->route('history.invoice')->with('notification', ['show' => true, 'statusNotif' => 'success', 'message' => 'Invoice berhasil dibuat!']);
+
     }
 
     /**

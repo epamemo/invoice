@@ -58,13 +58,15 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
+        $notification = session('notification');
         $invoiceu = $invoice::select('c.name','invoices.id','invoices.date','invoices.status','invoices.total_price')
         ->join('invoice_items as itm', 'itm.invoice_id','invoices.id')
         ->join('customers as c','c.id','invoices.customer_id')
         ->groupby('c.name','invoices.id','invoices.date','invoices.status','invoices.total_price')->where('user_id', auth()->user()->id)->get();
         return Inertia::render('Invoice/HistoryInvoice',[
             'title' => 'History Tanda Terima',
-            'invoice' => $invoiceu
+            'invoice' => $invoiceu,
+            'notification' => $notification
         ]);
     }
 

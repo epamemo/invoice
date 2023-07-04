@@ -84,7 +84,7 @@ export default function EditInvoice(props) {
                 data,
                 total_price: total,
             };
-            router.post("/edit-invoice", all);
+            router.post("/invoice/edit", all);
             setFormState({ nokw: "", date: "", price: 0 });
         } else {
             setNotification({ show: true, statusNotif: "warning" });

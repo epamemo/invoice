@@ -78,6 +78,9 @@ export default function CreateInvoice(props) {
             };
             setPrintedData((prevState) => [...prevState, newRow]);
             setFormState({ nokw: "", date: "", price: 0 });
+        } else if (condition) {
+            setNotification({ show: true, statusNotif: "warning" });
+            props.flash.message = "Isi Nama Customer";
         }
     };
 
@@ -85,13 +88,13 @@ export default function CreateInvoice(props) {
 
     const handleSubmit = () => {
         const data = { ...printedData };
-        if (customerState) {
+        if (customerState && total > 0) {
             const all = {
                 customer_id: customerState.id,
                 data,
                 total_price: total,
             };
-            router.post("/create-invoice", all);
+            router.post("/invoice", all);
             setFormState({ nokw: "", date: "", price: 0 });
         } else {
             setNotification({ show: true, statusNotif: "warning" });

@@ -32,7 +32,7 @@ export default function CreateInvoice(props) {
 
     const handleSubmit = () => {
         if (customer.name && customer.phone) {
-            router.post("/create-customer", customer);
+            router.post("/customer/create", customer);
             setCustomer({ name: "", phone: "" });
         } else {
             setNotification({ show: true, statusNotif: "warning" });

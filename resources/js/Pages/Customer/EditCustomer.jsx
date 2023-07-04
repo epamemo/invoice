@@ -30,13 +30,13 @@ export default function EditInvoice(props) {
     };
 
     const handleSubmit = () => {
-        router.post("/edit-customers", customer);
+        router.post("/customer/edit", customer);
     };
 
     // const handleSubmit = () => {
     //     if (customer.id === null) {
     //         if (customer.name && customer.phone) {
-    //             router.post("/create-customer", customer);
+    //             router.post("/customer/create", customer);
     //             setCustomer({ name: "", phone: "" });
     //         } else {
     //             setNotification({ show: true, statusNotif: "warning" });

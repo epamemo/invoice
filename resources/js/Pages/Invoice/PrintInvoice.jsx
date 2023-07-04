@@ -137,7 +137,7 @@ export default function PrintInvoice(props) {
                         </p>
                         <div className="m-0">
                             <div className="overflow-x-auto">
-                                <table className="table table-zebra border-2">
+                                <table className="table table-auto table-zebra border-2">
                                     <thead>
                                         <tr>
                                             <th className="bg-sim-red text-white text-center">

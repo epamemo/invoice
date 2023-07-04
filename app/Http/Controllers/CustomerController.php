@@ -14,9 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::get();
+        $customers = Customer::get();$notification = session('notification');
         return Inertia::render('Customer/IndexCustomer', [
-            'title' => 'Data Customer',
+            'title' => 'Data Customer','notification' => $notification,
             'customer' => $customers
         ]);
     }

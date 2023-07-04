@@ -1,6 +1,7 @@
+import Notification from "@/Components/Notification";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Head, Link, router, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function CreateInvoice(props) {
     const [notification, setNotification] = useState({
@@ -9,25 +10,15 @@ export default function CreateInvoice(props) {
     });
 
     const handleDelete = (id) => {
-        router.get("/create-customers", id);
+        router.get("/customer/creates", id);
     };
 
     console.log(props.customer);
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
-            {notification.show && (
-                <div
-                    onClick={() => setNotification(false)}
-                    className={`alert alert-${notification.statusNotif} shadow-lg w-auto`}
-                >
-                    <div className="flex gap-2">
-                        <box-icon name="error" />
+            <Notification props={props.notification} />
 
-                        <span> {props.flash.message}</span>
-                    </div>
-                </div>
-            )}
             <div className="">
                 <div>
                     {props.customer.length !== 0 ? (
