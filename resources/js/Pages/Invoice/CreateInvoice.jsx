@@ -211,20 +211,20 @@ export default function CreateInvoice(props) {
                         </div>
                     </div>
                     <button
-                        className="btn btn-primary"
+                        className="btn btn-primary "
                         onClick={() => handleSubmit()}
                     >
-                        <box-icon name="save" color="#B4BFFE" />
+                        <box-icon name="save" color="#B4BFFE" className="" />
                         Submit
                     </button>
                     <button
-                        className="btn btn-outline mx-3"
+                        className="btn btn-outline btn-primary mx-3"
                         onClick={handleAddRow}
                     >
-                        <box-icon name="plus" />
+                        <box-icon name="plus" color="#570DF8" />
                         Tambah Data
                     </button>
-                    <div className="form-control my-4">
+                    <div className="form-control my-4 ">
                         {selectedOption != null ? (
                             <div>
                                 <InputLabel htmlFor="nokw">Customer</InputLabel>

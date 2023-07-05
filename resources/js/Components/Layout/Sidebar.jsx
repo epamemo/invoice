@@ -20,13 +20,16 @@ function Sidebar({ children, user, header }) {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <div className="menu h-full lg:pr-2 lg:pl-4 lg:py-4 w-80">
-                    <div className="p-4 flex flex-col text-base-content bg-white h-full rounded-2xl">
+                    <div className="p-4 flex flex-col text-base-content bg-base-100 h-full rounded-2xl">
                         <div className="btn btn-ghost h-fit py-12 mb-4">
-                            <box-icon
-                                size="md"
-                                color="#6366f1"
-                                name="task"
-                            ></box-icon>
+                            <div className="boxicon-color">
+                                <box-icon
+                                    size="md"
+                                    color="#570DF8"
+                                    name="chart"
+                                    type="solid"
+                                ></box-icon>
+                            </div>
                             <Link
                                 href={route("dashboard")}
                                 as="button"

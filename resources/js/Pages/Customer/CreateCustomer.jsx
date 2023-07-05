@@ -58,7 +58,7 @@ export default function CreateInvoice(props) {
                 </div>
             )}
             <div className="">
-                <div className="text-gray-900">
+                <div className="">
                     <div className="grid grid-flow-col gap-4">
                         <div className="my-4 relative">
                             <Test

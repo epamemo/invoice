@@ -1,20 +1,8 @@
 import Notification from "@/Components/Notification";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
-import { Head, Link, router, usePage } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { Link } from "@inertiajs/react";
 
 export default function CreateInvoice(props) {
-    const [notification, setNotification] = useState({
-        show: false,
-        statusNotif: "",
-    });
-
-    const handleDelete = (id) => {
-        router.get("/customer/creates", id);
-    };
-
-    console.log(props.customer);
-
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
             <Notification props={props.notification} />

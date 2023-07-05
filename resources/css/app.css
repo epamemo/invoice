@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-theme="dark"] {
+    .boxicon-color > #id {
+        background-color: bisque !important;
+    }
+}

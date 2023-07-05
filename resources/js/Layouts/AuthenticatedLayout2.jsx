@@ -11,10 +11,10 @@ export default function Authenticated({ user, header, children }) {
         useState(false);
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 ">
+        <div className="min-h-screen bg-base-300 ">
             <Head title={header} />
             <Sidebar user={user} header={header}>
-                <main className="bg-white p-6 mb-4 ml-2 mr-4 rounded-2xl">
+                <main className="bg-base-100 p-6 mb-4 ml-2 mr-4 rounded-2xl">
                     {header && (
                         <header className="ml-2 mr-4 mt-2 mb-4">
                             <div className="text-5xl font-bold">{header}</div>

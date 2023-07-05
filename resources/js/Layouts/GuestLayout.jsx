@@ -6,7 +6,7 @@ import { BoxIconElement } from "boxicons";
 
 export default function Guest({ children }) {
     return (
-        <div className="min-h-screen flex flex-col pt-0 bg-gray-100">
+        <div className="min-h-screen flex flex-col pt-0 bg-base-300">
             <div className="grid lg:grid-cols-2 grid-flow-row">
                 <div className="flex lg:h-screen h-fit col-auto">
                     <label

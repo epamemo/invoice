@@ -50,7 +50,7 @@ export default function Dashboard(props) {
                             {props.invoice.map((inv, i) => {
                                 console.log(inv);
                                 return (
-                                    <tr key={i} className="hover bg-gray-100">
+                                    <tr key={i} className="hover">
                                         <th>{i + 1}</th>
                                         <td>{inv.name}</td>
                                         <td>{inv.date}</td>

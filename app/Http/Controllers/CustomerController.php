@@ -16,7 +16,8 @@ class CustomerController extends Controller
     {
         $customers = Customer::get();$notification = session('notification');
         return Inertia::render('Customer/IndexCustomer', [
-            'title' => 'Data Customer','notification' => $notification,
+            'title' => 'Data Customer',
+            'notification' => $notification,
             'customer' => $customers
         ]);
     }
@@ -36,17 +37,6 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function store2(Request $request)
-    {
-        // dd(json_encode($request));
-        $news = new Customer();
-        $news->name = $request->name;
-        $news->phone = $request->phone;
-        $news->save();
-
-        return redirect()->back()->with('message', 'berita berhasil dibuat');
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -57,18 +47,7 @@ class CustomerController extends Controller
         $news->phone = $request->phone;
         $news->save();
 
-        return to_route('index.customer');
-        // dd($request->all());
-        // $data = $request->all();
-        // foreach ($request as $key => $value) {
-        // $customer = new Customer();
-        // $customer->name = $data->name;
-        // $customer->phone = $data->phone;
-        // $customer->save();
-        // }
-        // DB::table('customers')->insert($data);
-
-        // return redirect()->back()->with('message', 'berita berhasil dibuat');
+        return to_route('index.customer')->with('notification', ['show' => true, 'statusNotif' => 'success', 'message' => 'Invoice berhasil dibuat!']);
     }
 
     /**

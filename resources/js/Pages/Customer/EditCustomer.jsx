@@ -1,11 +1,9 @@
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
-import LogoSimetri from "@/Img/logo-simetri.jpg";
-import { Head, router, usePage } from "@inertiajs/react";
-import { useRef, useState } from "react";
+import { router } from "@inertiajs/react";
+import { useState } from "react";
 import Test from "@/Pages/User/Test";
 import { formatPhone } from "@/Helpers/FormatInput";
+import Notification from "@/Components/Notification";
 
 export default function EditInvoice(props) {
     const [notification, setNotification] = useState({
@@ -32,19 +30,6 @@ export default function EditInvoice(props) {
     const handleSubmit = () => {
         router.post("/customer/edit", customer);
     };
-
-    // const handleSubmit = () => {
-    //     if (customer.id === null) {
-    //         if (customer.name && customer.phone) {
-    //             router.post("/customer/create", customer);
-    //             setCustomer({ name: "", phone: "" });
-    //         } else {
-    //             setNotification({ show: true, statusNotif: "warning" });
-    //             props.flash.message = "Isi Nama Customer";
-    //         }
-    //     } else router.post(`/edit-customer/${customer.id}`, customer);
-    // };
-
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
             {notification.show && (
@@ -59,6 +44,8 @@ export default function EditInvoice(props) {
                     </div>
                 </div>
             )}
+            <Notification props={props.notification} />
+
             <div className="">
                 <div className="text-gray-900">
                     <div className="grid grid-flow-col gap-4">
