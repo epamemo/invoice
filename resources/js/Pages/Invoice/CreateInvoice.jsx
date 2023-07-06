@@ -228,17 +228,17 @@ export default function CreateInvoice(props) {
                         {selectedOption != null ? (
                             <div>
                                 <InputLabel htmlFor="nokw">Customer</InputLabel>
-                                <div className="input-group">
+                                <div className="join w-full">
                                     <TextInput
                                         id="customer"
                                         type="customer"
-                                        className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                                        className="w-full px-4 py-2 join-item rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                                         placeholder="PT. Nama Perusahaan"
                                         value={customerState.name}
                                         readOnly
                                     />
                                     <button
-                                        className="btn btn-warning relative"
+                                        className="btn btn-warning join-item relative"
                                         onClick={() => resetSelected()}
                                     >
                                         <box-icon name="reset" />

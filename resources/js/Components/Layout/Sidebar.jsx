@@ -2,19 +2,11 @@ import { Link } from "@inertiajs/react";
 import Navbar from "@/Components/Layout/Navbar";
 import "boxicons";
 
-function Sidebar({ children, user, header }) {
+function Sidebar({ children, user, header, theme }) {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content mb-4 pb-4 rounded-3xl mt-4">
-                <Navbar user={user}>
-                    <label
-                        htmlFor="my-drawer-2"
-                        className="btn btn-primary drawer-button lg:hidden"
-                    >
-                        Open drawer
-                    </label>
-                </Navbar>
                 {children}
             </div>
             <div className="drawer-side">
@@ -25,7 +17,11 @@ function Sidebar({ children, user, header }) {
                             <div className="boxicon-color">
                                 <box-icon
                                     size="md"
-                                    color="#570DF8"
+                                    color={
+                                        theme === "light"
+                                            ? "#570DF8"
+                                            : "#ffffff"
+                                    }
                                     name="chart"
                                     type="solid"
                                 ></box-icon>
@@ -64,7 +60,14 @@ function Sidebar({ children, user, header }) {
                                             href={route("dashboard")}
                                             as="button"
                                         >
-                                            <box-icon name="home" />
+                                            <box-icon
+                                                name="home"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            />
                                             Dashboard
                                         </Link>
                                     </>
@@ -75,7 +78,14 @@ function Sidebar({ children, user, header }) {
                                             href={route("dashboard")}
                                             as="button"
                                         >
-                                            <box-icon name="home" />
+                                            <box-icon
+                                                name="home"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            />
                                             Dashboard
                                         </Link>
                                     </>
@@ -90,7 +100,14 @@ function Sidebar({ children, user, header }) {
                                             href={route("history.invoice")}
                                             as="button"
                                         >
-                                            <box-icon name="file"></box-icon>
+                                            <box-icon
+                                                name="file"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            ></box-icon>
                                             History
                                         </Link>
                                     </>
@@ -100,7 +117,14 @@ function Sidebar({ children, user, header }) {
                                         href={route("history.invoice")}
                                         as="button"
                                     >
-                                        <box-icon name="file"></box-icon>
+                                        <box-icon
+                                            name="file"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         History
                                     </Link>
                                 )}
@@ -116,7 +140,14 @@ function Sidebar({ children, user, header }) {
                                         href={route("index.customer")}
                                         as="button"
                                     >
-                                        <box-icon name="group"></box-icon>
+                                        <box-icon
+                                            name="group"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Data Customer
                                     </Link>
                                 ) : (
@@ -125,7 +156,14 @@ function Sidebar({ children, user, header }) {
                                         href={route("index.customer")}
                                         as="button"
                                     >
-                                        <box-icon name="group"></box-icon>
+                                        <box-icon
+                                            name="group"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Data Customer
                                     </Link>
                                 )}
@@ -138,7 +176,14 @@ function Sidebar({ children, user, header }) {
                                         href={route("create.customer")}
                                         as="button"
                                     >
-                                        <box-icon name="user-plus"></box-icon>
+                                        <box-icon
+                                            name="user-plus"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Tambah Customer
                                     </Link>
                                 ) : (
@@ -147,7 +192,14 @@ function Sidebar({ children, user, header }) {
                                         href={route("create.customer")}
                                         as="button"
                                     >
-                                        <box-icon name="user-plus"></box-icon>
+                                        <box-icon
+                                            name="user-plus"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Tambah Customer
                                     </Link>
                                 )}

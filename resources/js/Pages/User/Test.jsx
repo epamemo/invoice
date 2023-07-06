@@ -51,17 +51,17 @@ export default function SelectInput({
             {selectedOption != null ? (
                 <div>
                     <InputLabel htmlFor={id}>{label}</InputLabel>
-                    <div className="input-group">
+                    <div className="join w-full">
                         <TextInput
                             type={type}
                             id={id}
                             name={nameInpt}
-                            className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                            className="w-full px-4 py-2 join-item rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                             value={selectedOption}
                             readOnly
                         />
                         <button
-                            className="btn btn-warning relative"
+                            className="btn btn-warning join-item relative"
                             onClick={() => resetSelected()}
                         >
                             reset

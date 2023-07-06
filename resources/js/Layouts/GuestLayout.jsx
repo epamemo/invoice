@@ -23,7 +23,7 @@ export default function Guest({ children }) {
                             ></box-icon>
 
                             <p className="ml-2 normal-case text-xl  font-bold">
-                                A/P Invoice.
+                                Penerimaan Barang.
                             </p>
                         </div>
                         <div className="text-center lg:px-8 lg:block hidden">
@@ -37,17 +37,17 @@ export default function Guest({ children }) {
                                 Sederhana dan Profesional
                             </p>
                             <p className="lg:block hidden">
-                                Selamat datang di Aplikasi A/P Invoice! Ciptakan
-                                invoice profesional dengan mudah, kelola
-                                pembayaran dan pengeluaran bisnis Anda, serta
-                                nikmati kemudahan otomatisasi invoice berulang.
-                                Akses invoice Anda di mana saja, kapan saja, dan
-                                pantau kesehatan keuangan perusahaan dengan
-                                cepat dan akurat.
+                                Selamat datang di Aplikasi Penerimaan Barang!
+                                Ciptakan invoice profesional dengan mudah,
+                                kelola pembayaran dan pengeluaran bisnis Anda,
+                                serta nikmati kemudahan otomatisasi invoice
+                                berulang. Akses invoice Anda di mana saja, kapan
+                                saja, dan pantau kesehatan keuangan perusahaan
+                                dengan cepat dan akurat.
                             </p>
                             <p className="lg:hidden block">
-                                Selamat datang di Aplikasi A/P Invoice! Akses
-                                invoice Anda di mana saja, kapan saja, dan
+                                Selamat datang di Aplikasi Penerimaan Barang!
+                                Akses invoice Anda di mana saja, kapan saja, dan
                                 pantau kesehatan keuangan perusahaan dengan
                                 cepat dan akurat.
                             </p>

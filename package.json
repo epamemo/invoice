@@ -13,7 +13,7 @@
         "@vitejs/plugin-react": "^3.0.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.1.2",
-        "daisyui": "^3.1.6",
+        "daisyui": "^3.1.9",
         "laravel-vite-plugin": "^0.7.5",
         "postcss": "^8.4.18",
         "react": "^18.2.0",
@@ -26,6 +26,7 @@
         "boxicons": "^2.1.4",
         "jspdf": "^2.5.1",
         "lottie-react": "^2.4.0",
+        "react-confirm-alert": "^3.0.6",
         "react-to-print": "^2.14.13",
         "theme-change": "^2.5.0"
     }

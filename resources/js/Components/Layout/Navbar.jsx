@@ -1,9 +1,9 @@
 import { Link } from "@inertiajs/react";
 import "boxicons";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
-const Navbar = ({ user, children }) => {
+const Navbar = ({ user, children, theme }) => {
     useEffect(() => {
         themeChange(false);
     }, []);
@@ -12,21 +12,21 @@ const Navbar = ({ user, children }) => {
             <div className="navbar bg-base-100 rounded-2xl">
                 <div className="navbar-start">
                     {children}
-                    <label className="swap swap-rotate">
+                    <label className="swap swap-rotate ml-2">
                         <input
                             type="checkbox"
                             data-toggle-theme="dark,light"
                             data-act-class="ACTIVECLASS"
                         />
                         <svg
-                            className="swap-off fill-current w-10 h-10"
+                            className="swap-off fill-current w-8 h-8"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                         >
                             <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
                         </svg>
                         <svg
-                            className="swap-on fill-current w-10 h-10"
+                            className="swap-on fill-current w-8 h-8"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                         >
@@ -39,7 +39,7 @@ const Navbar = ({ user, children }) => {
                         <input
                             type="text"
                             placeholder="Search"
-                            className="input input-bordered"
+                            className="input input-bordered bg-base-300"
                         />
                     </div>
                 </div>
@@ -82,9 +82,16 @@ const Navbar = ({ user, children }) => {
                                         href={route("dashboard")}
                                         as="button"
                                     >
-                                        <box-icon name="home"></box-icon>
+                                        <box-icon
+                                            name="home"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Dashboard
-                                        <span className="badge">New</span>
+                                        <span className="badge ">New</span>
                                     </Link>
                                 </li>
                                 <li>
@@ -92,7 +99,14 @@ const Navbar = ({ user, children }) => {
                                         href={route("profile.edit")}
                                         as="button"
                                     >
-                                        <box-icon name="user-circle"></box-icon>
+                                        <box-icon
+                                            name="user-circle"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Profile
                                     </Link>
                                 </li>
@@ -102,7 +116,14 @@ const Navbar = ({ user, children }) => {
                                         method="post"
                                         as="button"
                                     >
-                                        <box-icon name="log-out-circle"></box-icon>
+                                        <box-icon
+                                            name="log-out-circle"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         Logout
                                     </Link>
                                 </li>

@@ -28,8 +28,21 @@ export default function EditInvoice(props) {
     };
 
     const handleSubmit = () => {
-        router.post("/customer/edit", customer);
+        if (customer.name && customer.phone) {
+            router.post("/customer/edit", customer);
+            setCustomer({ name: "", phone: "" });
+        } else {
+            setNotification({ show: true, statusNotif: "warning" });
+            props.flash.message = `Isi
+            ${customer.name == "" ? "Nama Customer" : ""}
+            ${customer.name == "" && customer.phone == "" ? " & " : ""}
+            ${customer.phone == "" ? "Kontak Customer" : ""}`;
+        }
     };
+
+    // const handleSubmit = () => {
+    //     router.post("/customer/edit", customer);
+    // };
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
             {notification.show && (
