@@ -1,14 +1,16 @@
 import Modal from "@/Components/Modal";
+import UserContext from "@/Helpers/UserContext";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { FormatRupiah } from "@arismun/format-rupiah";
-import { Head, Link, router } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { Head, Link, router, usePage } from "@inertiajs/react";
+import { useContext, useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 
 export default function History(props) {
     const [theme, setTheme] = useState("");
-
+    const userCC = useContext(UserContext);
+    const { user } = usePage().props;
     useEffect(() => {
         const observer = new MutationObserver((mutationsList) => {
             for (let mutation of mutationsList) {
@@ -93,6 +95,9 @@ export default function History(props) {
         }
     }, []);
 
+    console.log("user", user);
+    console.log("userCC", userCC);
+
     return (
         <AuthenticatedLayout2 user={props.auth.user} header="History">
             {notification.show && (
@@ -108,7 +113,8 @@ export default function History(props) {
                 </div>
             )}
             <Head title="History" />
-
+            <p>{user}</p>
+            <p>{userCC}</p>
             <div className="pl-2 pr-4">
                 <div className="overflow-x-auto">
                     <table className="table w-full">

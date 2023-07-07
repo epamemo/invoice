@@ -1,12 +1,11 @@
 import { Link } from "@inertiajs/react";
 import Navbar from "@/Components/Layout/Navbar";
 import "boxicons";
-
 function Sidebar({ children, user, header, theme }) {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content mb-4 pb-4 rounded-3xl mt-4">
+            <div className="drawer-content h-full py-4 rounded-3xl">
                 {children}
             </div>
             <div className="drawer-side">

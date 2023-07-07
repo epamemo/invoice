@@ -1,6 +1,7 @@
 import { Link } from "@inertiajs/react";
+import UserContext from "@/Helpers/UserContext";
 import "boxicons";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
 const Navbar = ({ user, children, theme, onchange }) => {
