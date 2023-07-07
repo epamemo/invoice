@@ -1,6 +1,6 @@
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Head, router } from "@inertiajs/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "boxicons";
 import CardDashboard from "@/Components/Layout/CardDashboard";
 import { FormatRupiah } from "@arismun/format-rupiah";
@@ -41,7 +41,7 @@ export default function Dashboard(props) {
                     <table className="table table-pin-rows table-zebra table-pin-cols">
                         {/* head */}
                         <thead>
-                            <tr>
+                            <tr className="text-center">
                                 <th>No</th>
                                 <th>Nama Customer</th>
                                 <th>Tanggal</th>

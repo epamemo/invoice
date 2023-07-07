@@ -1,8 +1,33 @@
 import Notification from "@/Components/Notification";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Link } from "@inertiajs/react";
+import { useEffect, useState } from "react";
 
 export default function CreateInvoice(props) {
+    const [theme, setTheme] = useState("");
+
+    useEffect(() => {
+        const observer = new MutationObserver((mutationsList) => {
+            for (let mutation of mutationsList) {
+                if (mutation.attributeName === "data-theme") {
+                    const newTheme =
+                        document.documentElement.getAttribute("data-theme");
+                    setTheme(newTheme);
+                }
+            }
+        });
+
+        observer.observe(document.documentElement, { attributes: true });
+
+        const initialTheme =
+            document.documentElement.getAttribute("data-theme");
+        setTheme(initialTheme);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
             <Notification props={props.notification} />
@@ -12,11 +37,11 @@ export default function CreateInvoice(props) {
                     {props.customer.length !== 0 ? (
                         <table className="table table-zebra">
                             <thead>
-                                <tr>
+                                <tr className="text-center">
                                     <th>No.</th>
                                     <th>Nama Customer</th>
                                     <th>Kontak</th>
-                                    <th>Opsi</th>
+                                    <th className="w-3">Opsi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -27,28 +52,46 @@ export default function CreateInvoice(props) {
                                             <td>{cs.name}</td>
                                             <td>{cs.phone}</td>
                                             <td>
-                                                <Link
-                                                    className="btn btn-accent"
-                                                    href={route(
-                                                        "edit.customer"
-                                                    )}
-                                                    method="get"
-                                                    data={{ id: cs.id }}
-                                                    as="button"
-                                                >
-                                                    Edit
-                                                </Link>
-                                                <Link
-                                                    className="btn btn-ghost"
-                                                    href={route(
-                                                        "delete.customer"
-                                                    )}
-                                                    method="post"
-                                                    data={{ id: cs.id }}
-                                                    as="button"
-                                                >
-                                                    Delete
-                                                </Link>
+                                                <div className="join rounded-xl">
+                                                    <Link
+                                                        className="btn btn-accent join-item"
+                                                        href={route(
+                                                            "edit.customer"
+                                                        )}
+                                                        method="get"
+                                                        data={{ id: cs.id }}
+                                                        as="button"
+                                                    >
+                                                        <box-icon
+                                                            name="edit"
+                                                            color={
+                                                                theme ===
+                                                                "light"
+                                                                    ? "#000000"
+                                                                    : "#ffffff"
+                                                            }
+                                                        ></box-icon>
+                                                    </Link>
+                                                    <Link
+                                                        className="btn btn-ghost join-item"
+                                                        href={route(
+                                                            "delete.customer"
+                                                        )}
+                                                        method="post"
+                                                        data={{ id: cs.id }}
+                                                        as="button"
+                                                    >
+                                                        <box-icon
+                                                            name="trash"
+                                                            color={
+                                                                theme ===
+                                                                "light"
+                                                                    ? "#000000"
+                                                                    : "#ffffff"
+                                                            }
+                                                        ></box-icon>
+                                                    </Link>
+                                                </div>
                                             </td>
                                         </tr>
                                     );

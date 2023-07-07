@@ -1,9 +1,9 @@
 import { Link } from "@inertiajs/react";
 import "boxicons";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { themeChange } from "theme-change";
 
-const Navbar = ({ user, children, theme }) => {
+const Navbar = ({ user, children, theme, onchange }) => {
     useEffect(() => {
         themeChange(false);
     }, []);
@@ -40,6 +40,7 @@ const Navbar = ({ user, children, theme }) => {
                             type="text"
                             placeholder="Search"
                             className="input input-bordered bg-base-300"
+                            onChange={onchange}
                         />
                     </div>
                 </div>
@@ -66,9 +67,12 @@ const Navbar = ({ user, children, theme }) => {
                         <div className="dropdown dropdown-end">
                             <label
                                 tabIndex={0}
-                                className="btn btn-ghost btn-circle avatar"
+                                className="btn btn-ghost w-full"
                             >
-                                <div className="w-10 rounded-full">
+                                <p className="font-semibold mr-2">
+                                    {user.name}
+                                </p>
+                                <div className="w-10 mask mask-squircle">
                                     <img src="../storage/images/90.jpg" />
                                 </div>
                             </label>
