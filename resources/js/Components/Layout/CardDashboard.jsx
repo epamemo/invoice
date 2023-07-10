@@ -4,7 +4,7 @@ export default function CardDashboard({ data, name, icon, color }) {
             <div className="card static bg-base-300">
                 <div className="card-body">
                     <div
-                        className={`bg-${color} mask mask-squircle w-14 h-14 flex justify-center items-center mb-4`}
+                        className={`${color} mask mask-squircle w-14 h-14 flex justify-center items-center mb-4`}
                     >
                         <box-icon name={icon} size="md" />
                     </div>

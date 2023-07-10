@@ -1,16 +1,19 @@
 import Modal from "@/Components/Modal";
-import UserContext from "@/Helpers/UserContext";
+import { textState } from "@/Helpers/TextState";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { FormatRupiah } from "@arismun/format-rupiah";
 import { Head, Link, router, usePage } from "@inertiajs/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { useRecoilState } from "recoil";
+import empty from "@/Lotties/empty.json";
+import Lottie from "lottie-react";
 
 export default function History(props) {
     const [theme, setTheme] = useState("");
-    const userCC = useContext(UserContext);
-    const { user } = usePage().props;
+    const [search] = useRecoilState(textState);
+
     useEffect(() => {
         const observer = new MutationObserver((mutationsList) => {
             for (let mutation of mutationsList) {
@@ -95,8 +98,15 @@ export default function History(props) {
         }
     }, []);
 
-    console.log("user", user);
-    console.log("userCC", userCC);
+    const filteredOptions = props.invoice.filter(
+        (data) =>
+            data.name?.toLowerCase().includes(search.toLowerCase()) ||
+            data.status?.toLowerCase().includes(search.toLowerCase()) ||
+            data.date?.toLowerCase().includes(search.toLowerCase()) ||
+            data.total_price?.toLowerCase().includes(search.toLowerCase())
+    );
+
+    console.log(props.invoice);
 
     return (
         <AuthenticatedLayout2 user={props.auth.user} header="History">
@@ -113,8 +123,6 @@ export default function History(props) {
                 </div>
             )}
             <Head title="History" />
-            <p>{user}</p>
-            <p>{userCC}</p>
             <div className="pl-2 pr-4">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
@@ -130,76 +138,96 @@ export default function History(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {props.invoice.map((inv, i) => {
-                                return (
-                                    <tr key={i}>
-                                        <th>{i + 1}</th>
-                                        <td>{inv.name}</td>
-                                        <td>{inv.date}</td>
-                                        <td>
-                                            <FormatRupiah
-                                                value={inv.total_price}
-                                            />
-                                        </td>
-                                        <td>{inv.status}</td>
-                                        <td className="flex gap-3">
-                                            <div className="join rounded-xl">
-                                                <Link
-                                                    className="btn btn-accent join-item"
-                                                    href={route(
-                                                        "print.invoice"
-                                                    )}
-                                                    method="get"
-                                                    data={{ id: inv.id }}
-                                                    as="button"
-                                                >
-                                                    <box-icon
-                                                        name="printer"
-                                                        color={
-                                                            theme === "light"
-                                                                ? "#000000"
-                                                                : "#ffffff"
-                                                        }
-                                                    ></box-icon>
-                                                </Link>
-                                                <Link
-                                                    className="btn btn-ghost join-item"
-                                                    href={route("edit.invoice")}
-                                                    method="get"
-                                                    data={{ id: inv.id }}
-                                                    as="button"
-                                                >
-                                                    <box-icon
-                                                        name="edit"
-                                                        color={
-                                                            theme === "light"
-                                                                ? "#000000"
-                                                                : "#ffffff"
-                                                        }
-                                                    ></box-icon>
-                                                </Link>
-                                                <Link
-                                                    className="btn btn-ghost join-item"
-                                                    // href={route("delete.invoice")}
-                                                    href=""
-                                                    onClick={hanldeClick}
-                                                    data={{ id: inv.id }}
-                                                    as="button"
-                                                >
-                                                    <box-icon
-                                                        name="trash"
-                                                        color={
-                                                            theme === "light"
-                                                                ? "#000000"
-                                                                : "#ffffff"
-                                                        }
-                                                    ></box-icon>
-                                                </Link>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                            {filteredOptions.length === 0 ? (
+                                <tr>
+                                    <td
+                                        colSpan={6}
+                                        className="prose text-center"
+                                    >
+                                        <Lottie
+                                            animationData={empty}
+                                            className="h-64"
+                                        />
+                                        <h2 className="mt-0">Data tidak ada</h2>
+                                    </td>
+                                </tr>
+                            ) : (
+                                filteredOptions.map((inv, i) => {
+                                    return (
+                                        <tr key={i}>
+                                            <th>{i + 1}</th>
+                                            <td>{inv.name}</td>
+                                            <td>{inv.date}</td>
+                                            <td>
+                                                <FormatRupiah
+                                                    value={inv.total_price}
+                                                />
+                                            </td>
+                                            <td>{inv.status}</td>
+                                            <td className="flex gap-3">
+                                                <div className="join rounded-xl">
+                                                    <Link
+                                                        className="btn btn-accent join-item"
+                                                        href={route(
+                                                            "print.invoice"
+                                                        )}
+                                                        method="get"
+                                                        data={{ id: inv.id }}
+                                                        as="button"
+                                                    >
+                                                        <box-icon
+                                                            name="printer"
+                                                            color={
+                                                                theme ===
+                                                                "light"
+                                                                    ? "#000000"
+                                                                    : "#ffffff"
+                                                            }
+                                                        ></box-icon>
+                                                    </Link>
+                                                    <Link
+                                                        className="btn btn-ghost join-item"
+                                                        href={route(
+                                                            "edit.invoice"
+                                                        )}
+                                                        method="get"
+                                                        data={{ id: inv.id }}
+                                                        as="button"
+                                                    >
+                                                        <box-icon
+                                                            name="edit"
+                                                            color={
+                                                                theme ===
+                                                                "light"
+                                                                    ? "#000000"
+                                                                    : "#ffffff"
+                                                            }
+                                                        ></box-icon>
+                                                    </Link>
+                                                    <Link
+                                                        className="btn btn-ghost join-item"
+                                                        // href={route("delete.invoice")}
+                                                        href=""
+                                                        onClick={hanldeClick}
+                                                        data={{ id: inv.id }}
+                                                        as="button"
+                                                    >
+                                                        <box-icon
+                                                            name="trash"
+                                                            color={
+                                                                theme ===
+                                                                "light"
+                                                                    ? "#000000"
+                                                                    : "#ffffff"
+                                                            }
+                                                        ></box-icon>
+                                                    </Link>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            )}
                         </tbody>
                     </table>
                 </div>

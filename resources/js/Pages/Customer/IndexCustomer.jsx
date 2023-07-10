@@ -1,10 +1,15 @@
 import Notification from "@/Components/Notification";
+import { textState } from "@/Helpers/TextState";
 import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { Link } from "@inertiajs/react";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import empty from "@/Lotties/empty.json";
+import Lottie from "lottie-react";
 
 export default function CreateInvoice(props) {
     const [theme, setTheme] = useState("");
+    const [search] = useRecoilState(textState);
 
     useEffect(() => {
         const observer = new MutationObserver((mutationsList) => {
@@ -28,24 +33,30 @@ export default function CreateInvoice(props) {
         };
     }, []);
 
+    const filteredOptions = props.customer.filter(
+        (data) =>
+            data.name?.toLowerCase().includes(search.toLowerCase()) ||
+            data.phone?.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
         <AuthenticatedLayout2 user={props.auth.user} header={props.title}>
             <Notification props={props.notification} />
 
             <div className="">
                 <div>
-                    {props.customer.length !== 0 ? (
-                        <table className="table table-zebra">
-                            <thead>
-                                <tr className="text-center">
-                                    <th>No.</th>
-                                    <th>Nama Customer</th>
-                                    <th>Kontak</th>
-                                    <th className="w-3">Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {props.customer.map((cs, i) => {
+                    <table className="table table-zebra">
+                        <thead>
+                            <tr className="text-center">
+                                <th>No.</th>
+                                <th>Nama Customer</th>
+                                <th>Kontak</th>
+                                <th className="w-3">Opsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredOptions.length !== 0 ? (
+                                filteredOptions.map((cs, i) => {
                                     return (
                                         <tr key={i}>
                                             <td>{i + 1}</td>
@@ -95,12 +106,23 @@ export default function CreateInvoice(props) {
                                             </td>
                                         </tr>
                                     );
-                                })}
-                            </tbody>
-                        </table>
-                    ) : (
-                        <div>Data kosong</div>
-                    )}
+                                })
+                            ) : (
+                                <tr>
+                                    <td
+                                        colSpan={4}
+                                        className="prose text-center"
+                                    >
+                                        <Lottie
+                                            animationData={empty}
+                                            className="h-64"
+                                        />
+                                        <h2 className="mt-0">Data tidak ada</h2>
+                                    </td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </AuthenticatedLayout2>

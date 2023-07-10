@@ -4,7 +4,7 @@ import "../css/app.css";
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
-import { useEffect, useState } from "react";
+import { RecoilRoot } from "recoil";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
@@ -19,7 +19,11 @@ createInertiaApp({
     setup({ el, App, props }) {
         const root = createRoot(el);
 
-        root.render(<App {...props} />);
+        root.render(
+            <RecoilRoot>
+                <App {...props} />
+            </RecoilRoot>
+        );
     },
     progress: {
         color: "#4B5563",
