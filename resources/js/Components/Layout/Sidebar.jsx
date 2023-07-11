@@ -36,7 +36,7 @@ function Sidebar({ children, user, header, theme }) {
                         <ul className="grid gap-y-2">
                             <li>
                                 <Link
-                                    className="justify-center hover:bg-blue-400 content-center h-14 dark:btn btn btn-primary mb-5 text-white"
+                                    className="justify-center hover:bg-blue-400 content-center h-14 btn btn-primary mb-5 text-white"
                                     href={route("index.invoice")}
                                     as="button"
                                 >

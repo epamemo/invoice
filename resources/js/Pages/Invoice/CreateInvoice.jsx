@@ -78,9 +78,15 @@ export default function CreateInvoice(props) {
             };
             setPrintedData((prevState) => [...prevState, newRow]);
             setFormState({ nokw: "", date: "", price: 0 });
-        } else if (condition) {
+        } 
+
+        else if (formState.nokw == null) {
             setNotification({ show: true, statusNotif: "warning" });
-            props.flash.message = "Isi Nama Customer";
+            props.flash.message = "Isi No. Kwitansi";
+        }
+        else if (formState.date == null) {
+            setNotification({ show: true, statusNotif: "warning" });
+            props.flash.message = "Isi No. Kwitansi";
         }
     };
 
