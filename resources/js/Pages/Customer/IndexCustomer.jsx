@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import empty from "@/Lotties/empty.json";
 import Lottie from "lottie-react";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 export default function CreateInvoice(props) {
     const [theme, setTheme] = useState("");
@@ -32,6 +34,39 @@ export default function CreateInvoice(props) {
             observer.disconnect();
         };
     }, []);
+
+    const hanldeClick = (id) => {
+        confirmAlert({
+            customUI: ({ onClose }) => {
+                return (
+                    <div className="card w-96 bg-base-100 border-2">
+                        <div className="card-body items-center text-center">
+                            <h2 className="card-title">Cookies!</h2>
+                            <p>We are using cookies for no reason.</p>
+                            <div className="card-actions justify-end">
+                                <Link
+                                    className="btn btn-error"
+                                    href={route("delete.customer")}
+                                    onClick={onClose}
+                                    method="post"
+                                    as="button"
+                                    data={{ id: id }}
+                                >
+                                    Accept {id}
+                                </Link>
+                                <button
+                                    className="btn btn-ghost"
+                                    onClick={onClose}
+                                >
+                                    Deny
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            },
+        });
+    };
 
     const filteredOptions = props.customer.filter(
         (data) =>
@@ -85,12 +120,15 @@ export default function CreateInvoice(props) {
                                                     </Link>
                                                     <Link
                                                         className="btn btn-ghost join-item"
-                                                        href={route(
-                                                            "delete.customer"
-                                                        )}
-                                                        method="post"
-                                                        data={{ id: cs.id }}
+                                                        // href={route(
+                                                        //     "delete.customer"
+                                                        // )}
+                                                        // method="post"
+                                                        // data={{ id: cs.id }}
                                                         as="button"
+                                                        onClick={() =>
+                                                            hanldeClick(cs.id)
+                                                        }
                                                     >
                                                         <box-icon
                                                             name="trash"
