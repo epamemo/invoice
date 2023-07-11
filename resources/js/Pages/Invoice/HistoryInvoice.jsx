@@ -4,8 +4,8 @@ import AuthenticatedLayout2 from "@/Layouts/AuthenticatedLayout2";
 import { FormatRupiah } from "@arismun/format-rupiah";
 import { Head, Link, router, usePage } from "@inertiajs/react";
 import { useEffect, useState } from "react";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { useRecoilState } from "recoil";
 import empty from "@/Lotties/empty.json";
 import Lottie from "lottie-react";
@@ -41,7 +41,7 @@ export default function History(props) {
         statusNotif: null,
     });
 
-    const hanldeClick = () => {
+    const hanldeClick = (id) => {
         confirmAlert({
             customUI: ({ onClose }) => {
                 return (
@@ -50,15 +50,16 @@ export default function History(props) {
                             <h2 className="card-title">Cookies!</h2>
                             <p>We are using cookies for no reason.</p>
                             <div className="card-actions justify-end">
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                        this.handleClickDelete();
-                                        onClose();
-                                    }}
+                                <Link
+                                    className="btn btn-error"
+                                    href={route("delete.invoice")}
+                                    onClick={onClose}
+                                    method="post"
+                                    as="button"
+                                    data={{ id: id }}
                                 >
-                                    Accept
-                                </button>
+                                    Accept {id}
+                                </Link>
                                 <button
                                     className="btn btn-ghost"
                                     onClick={onClose}
@@ -208,7 +209,9 @@ export default function History(props) {
                                                         className="btn btn-ghost join-item"
                                                         // href={route("delete.invoice")}
                                                         href=""
-                                                        onClick={hanldeClick}
+                                                        onClick={() =>
+                                                            hanldeClick(inv.id)
+                                                        }
                                                         data={{ id: inv.id }}
                                                         as="button"
                                                     >

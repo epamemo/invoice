@@ -39,7 +39,7 @@ export default function Dashboard(props) {
                 </div>
                 <div className="h-96 mt-8">
                     <h1 className="font-bold text-lg mb-4">
-                        Riwayat Data Invoice
+                        Riwayat Data Invoice Terakhir
                     </h1>
                     <div className="overflow-x-auto">
                         <table className="table table-pin-rows table-zebra table-pin-cols rounded-2xl">
