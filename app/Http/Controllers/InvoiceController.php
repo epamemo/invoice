@@ -75,7 +75,7 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice, InvoiceItem $invoiceit, Customer $customer, Request $request)
     {
-        $invoiceItem=$invoiceit->select()->where('invoice_id',1)->get();
+        $invoiceItem=$invoiceit->select()->where('invoice_id',$request->id)->get();
         $inv= $invoice->find($request->id);
         $cs = $customer->find($inv->customer_id);
 
@@ -150,7 +150,7 @@ class InvoiceController extends Controller
 
     public function print(Invoice $invoice, InvoiceItem $invoiceit, Customer $customer, Request $request)
     {
-        $invoiceItem=InvoiceItem::select()->where('invoice_id',1)->get();
+        $invoiceItem=InvoiceItem::select()->where('invoice_id',$request->id)->get();
         $inv= $invoice->find($request->id);
         $cs = $customer->find($inv->customer_id);
 
