@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('customer_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->date('date');
+            $table->bigInteger('total_price')->unsigned();
             $table->string('status');
             $table->timestamps();
 

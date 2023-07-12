@@ -1,33 +1,30 @@
 import { Link } from "@inertiajs/react";
 import Navbar from "@/Components/Layout/Navbar";
 import "boxicons";
-
-function Sidebar({ children, user, header }) {
-    console.log(header);
+function Sidebar({ children, user, header, theme }) {
     return (
         <div className="drawer lg:drawer-open">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content mb-4 rounded-3xl mt-4">
-                <Navbar user={user}>
-                    <label
-                        htmlFor="my-drawer-2"
-                        className="btn btn-primary drawer-button lg:hidden"
-                    >
-                        Open drawer
-                    </label>
-                </Navbar>
+            <div className="drawer-content h-full py-4 rounded-3xl">
                 {children}
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                 <div className="menu h-full lg:pr-2 lg:pl-4 lg:py-4 w-80">
-                    <div className="p-4 flex flex-col text-base-content bg-white h-full rounded-2xl">
+                    <div className="p-4 flex flex-col text-base-content bg-base-100 h-full rounded-2xl">
                         <div className="btn btn-ghost h-fit py-12 mb-4">
-                            <box-icon
-                                size="md"
-                                color="#6366f1"
-                                name="task"
-                            ></box-icon>
+                            <div className="boxicon-color">
+                                <box-icon
+                                    size="md"
+                                    color={
+                                        theme === "light"
+                                            ? "#570DF8"
+                                            : "#ffffff"
+                                    }
+                                    name="chart"
+                                    type="solid"
+                                ></box-icon>
+                            </div>
                             <Link
                                 href={route("dashboard")}
                                 as="button"
@@ -39,8 +36,8 @@ function Sidebar({ children, user, header }) {
                         <ul className="grid gap-y-2">
                             <li>
                                 <Link
-                                    className="justify-center content-center h-14 dark:btn btn btn-primary mb-5 text-white"
-                                    href={route("vcreate.invoice")}
+                                    className="justify-center hover:bg-blue-400 content-center h-14 btn btn-primary mb-5 text-white"
+                                    href={route("index.invoice")}
                                     as="button"
                                 >
                                     <box-icon
@@ -62,18 +59,32 @@ function Sidebar({ children, user, header }) {
                                             href={route("dashboard")}
                                             as="button"
                                         >
-                                            <box-icon name="home" />
+                                            <box-icon
+                                                name="home"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            />
                                             Dashboard
                                         </Link>
                                     </>
                                 ) : (
                                     <>
                                         <Link
-                                            className="  "
+                                            className="btn-ghost"
                                             href={route("dashboard")}
                                             as="button"
                                         >
-                                            <box-icon name="home" />
+                                            <box-icon
+                                                name="home"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            />
                                             Dashboard
                                         </Link>
                                     </>
@@ -85,20 +96,34 @@ function Sidebar({ children, user, header }) {
                                     <>
                                         <Link
                                             className="btn-active btn-ghost "
-                                            href={route("my.news")}
+                                            href={route("history.invoice")}
                                             as="button"
                                         >
-                                            <box-icon name="file"></box-icon>
+                                            <box-icon
+                                                name="file"
+                                                color={
+                                                    theme === "light"
+                                                        ? "#000000"
+                                                        : "#ffffff"
+                                                }
+                                            ></box-icon>
                                             History
                                         </Link>
                                     </>
                                 ) : (
                                     <Link
-                                        className="  "
-                                        href={route("my.news")}
+                                        className="btn-ghost"
+                                        href={route("history.invoice")}
                                         as="button"
                                     >
-                                        <box-icon name="file"></box-icon>
+                                        <box-icon
+                                            name="file"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
                                         History
                                     </Link>
                                 )}
@@ -108,21 +133,73 @@ function Sidebar({ children, user, header }) {
                                 Data Customer
                             </p>
                             <li>
-                                {header == "History" ? (
+                                {header == "Data Customer" ? (
                                     <Link
                                         className="btn-active btn-ghost "
-                                        href={route("my.news")}
+                                        href={route("index.customer")}
                                         as="button"
                                     >
-                                        History
+                                        <box-icon
+                                            name="group"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
+                                        Data Customer
                                     </Link>
                                 ) : (
                                     <Link
-                                        className="  "
-                                        href={route("my.news")}
+                                        className="btn-ghost"
+                                        href={route("index.customer")}
                                         as="button"
                                     >
-                                        History
+                                        <box-icon
+                                            name="group"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
+                                        Data Customer
+                                    </Link>
+                                )}
+                                {/* <a>Sidebar Item 1</a> */}
+                            </li>
+                            <li>
+                                {header == "Pembuatan Customer" ? (
+                                    <Link
+                                        className="btn-active btn-ghost "
+                                        href={route("create.customer")}
+                                        as="button"
+                                    >
+                                        <box-icon
+                                            name="user-plus"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
+                                        Tambah Customer
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        className="btn-ghost"
+                                        href={route("create.customer")}
+                                        as="button"
+                                    >
+                                        <box-icon
+                                            name="user-plus"
+                                            color={
+                                                theme === "light"
+                                                    ? "#000000"
+                                                    : "#ffffff"
+                                            }
+                                        ></box-icon>
+                                        Tambah Customer
                                     </Link>
                                 )}
                                 {/* <a>Sidebar Item 1</a> */}

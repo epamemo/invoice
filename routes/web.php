@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\NewsController;
+use App\Http\Controllers\InvoiceItemController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,16 +22,28 @@ use Inertia\Inertia;
 
 // Route::post('/createNews', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.news');
 // Route::get('/create-news', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('page.news');
-Route::post('/createphone', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('create.customer');
-Route::get('/history', [NewsController::class, 'show'])->middleware(['auth', 'verified'])->name('my.news');
-Route::get('/', [NewsController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::inertia('/404', 'Error/404')->name('error.404');
+
 Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');
 Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name('page.test2');
 
+Route::post('/customer/delete', [CustomerController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.customer');
+Route::post('/customer/edit', [CustomerController::class, 'update'])->middleware(['auth', 'verified'])->name('update.customer');
+Route::get('/customer/edit', [CustomerController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.customer');
+Route::post('/customer/create', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('store.customer');
+Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth', 'verified'])->name('create.customer');
+Route::get('/customer', [CustomerController::class, 'index'])->middleware(['auth', 'verified'])->name('index.customer');
 
-Route::post('/create-invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('create.invoice');
-Route::get('/create-invoice', [InvoiceController::class, 'index'])->middleware(['auth', 'verified'])->name('vcreate.invoice');
+Route::post('/invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
+Route::get('/invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('index.invoice');
+Route::get('/invoice/history', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
+Route::get('/invoice/edit', [InvoiceController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.invoice');
+Route::post('/invoice/edit', [InvoiceController::class, 'update'])->middleware(['auth', 'verified'])->name('update.invoice');
+Route::post('/invoice/delete', [InvoiceController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.invoice');
+Route::get('/invoice/print', [InvoiceController::class, 'print'])->middleware(['auth', 'verified'])->name('print.invoice');
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
@@ -48,4 +61,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

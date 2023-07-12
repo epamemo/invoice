@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class InvoiceItemController extends Controller
@@ -27,7 +30,23 @@ class InvoiceItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->data;
+        DB::table('invoices')
+            ->insert([[
+                'customer_id' => $request->customer_id,
+                'user_id' => $request->user()->id,
+                'date' => now()->toDateString(),
+                'total_price' => $request->total_price,
+                'status' => 'Done'
+            ]]);
+        $lastId = Invoice::select('id')->orderby('id', 'DESC')->first();
+        foreach ($data as $key => $val) {
+            $data[$key]['invoice_id'] = $lastId->id;
+        }
+        DB::table('invoice_items')->insert($data);
+
+        return redirect()->route('history.invoice')->with('notification', ['show' => true, 'statusNotif' => 'success', 'message' => 'Invoice berhasil dibuat!']);
+
     }
 
     /**

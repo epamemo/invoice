@@ -1,61 +1,41 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import { Link } from "@inertiajs/react";
-import SvgData from "@/Img/Data Process_Outline.svg";
-import SvgOnline from "@/Img/Online report_Outline.svg";
+import { Head } from "@inertiajs/react";
 import { BoxIconElement } from "boxicons";
+import Lottie from "lottie-react";
+import Login from "@/Lotties/login-page.json";
 
-export default function Guest({ children }) {
+export default function Guest({ children, header }) {
+    console.log(header);
     return (
-        <div className="min-h-screen flex flex-col sm:justify-center pt-6 sm:pt-0 bg-gray-100">
-            <div className="grid grid-cols-2">
-                <div className="flex h-screen col-auto">
+        <div className="min-h-screen flex flex-col pt-0 bg-base-300">
+            <div className="grid lg:grid-cols-2 grid-flow-row">
+                <div className="flex lg:h-screen h-fit col-auto">
                     <label
                         htmlFor="my-drawer-2"
                         className="drawer-overlay"
                     ></label>
-                    <div className="mr-2 ml-4 my-4 p-4 w-full bg-slate-200 text-base-content  rounded-2xl">
-                        <div className="flex align-middle items-center h-fit mb-12">
+                    <div className="lg:mr-2 lg:ml-4 lg:my-4 mx-4 mt-4 p-4 w-full bg-base text-base-content rounded-2xl">
+                        <div className="flex align-middle justify-center lg:justify-normal items-center h-fit lg:mb-12">
                             <box-icon
                                 name="chart"
                                 type="solid"
                                 color="#343DF5"
-                                size="md"
+                                size="lg"
                             ></box-icon>
 
                             <p className="ml-2 normal-case text-xl  font-bold">
-                                A/P Invoice.
+                                Penerimaan Barang.
                             </p>
                         </div>
-                        <div className="text-center px-8">
-                            {/* <img src={SvgData} alt="" /> */}
-                            <img
-                                src={SvgOnline}
-                                className="w-full m-auto"
-                                alt="online-report-image"
-                            />
-                            <p className="normal-case text-3xl mb-4 font-bold">
-                                Sederhana dan Profesional
-                            </p>
-                            <p className="lg:block hidden">
-                                Selamat datang di Aplikasi A/P Invoice! Ciptakan
-                                invoice profesional dengan mudah, kelola
-                                pembayaran dan pengeluaran bisnis Anda, serta
-                                nikmati kemudahan otomatisasi invoice berulang.
-                                Akses invoice Anda di mana saja, kapan saja, dan
-                                pantau kesehatan keuangan perusahaan dengan
-                                cepat dan akurat.
-                            </p>
-                            <p className="lg:hidden block">
-                                Selamat datang di Aplikasi A/P Invoice! Akses
-                                invoice Anda di mana saja, kapan saja, dan
-                                pantau kesehatan keuangan perusahaan dengan
-                                cepat dan akurat.
-                            </p>
-                        </div>
+                        <Lottie animationData={Login} className="h-64" />
                     </div>
                 </div>
-                <div className="flex flex-wrap m-4 bg-white rounded-3xl p-12 align-middle">
-                    <div className="m-auto  ">{children}</div>
+                <div className="flex flex-wrap m-4 bg-white rounded-2xl p-12 align-middle">
+                    <div className="m-auto">
+                        <Head title={header} />
+                        {children}
+                    </div>
                 </div>
             </div>
         </div>

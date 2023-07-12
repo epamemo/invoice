@@ -9,20 +9,23 @@ import { FormatRupiah } from "@arismun/format-rupiah";
 import "boxicons";
 import { formatRupiah } from "@/Helpers/FormatInput";
 
-export default function CreateInvoice(props) {
+export default function EditInvoice(props) {
     const [notification, setNotification] = useState({
         show: false,
         statusNotif: "",
     });
     const [formState, setFormState] = useState({
+        invoice_id: props.invoice.id,
         nokw: "",
         date: "",
         price: 0,
     });
 
-    const [customerState, setCustomerState] = useState();
-
-    const [printedData, setPrintedData] = useState([]);
+    const [customerState, setCustomerState] = useState(props.cs);
+    console.log("form", formState);
+    console.log("cs state", props.invoice);
+    const [printedData, setPrintedData] = useState(props.invoice_item);
+    console.log("printed", printedData);
     const months = [
         "Januari",
         "Februari",
@@ -38,20 +41,10 @@ export default function CreateInvoice(props) {
         "Desember",
     ];
 
-    let dateNow = new Date();
+    let dateNow = new Date(props.invoice.date);
     const { auth } = usePage().props;
-    // const handleInputChange = (e) => {
-    //     if (e.target.name == "price") {
-    //         const { name, value } = e.target;
-    //         setFormState((prevState) => ({
-    //             ...prevState,
-    //             [name]: parseInt(value),
-    //         }));
-    //     } else {
-    //         const { name, value } = e.target;
-    //         setFormState((prevState) => ({ ...prevState, [name]: value }));
-    //     }
-    // };
+
+    console.log(props);
 
     const handleInputChange = (e) => {
         if (e.target.name === "price") {
@@ -72,35 +65,26 @@ export default function CreateInvoice(props) {
         if (formState.nokw && formState.date && formState.price) {
             const unformattedPrice = formState.price.replace(/[^0-9]/g, ""); // Remove non-digit characters
             const newRow = {
+                invoice_id: props.invoice.id,
                 nokw: formState.nokw,
                 date: formState.date,
                 price: parseInt(unformattedPrice),
             };
             setPrintedData((prevState) => [...prevState, newRow]);
             setFormState({ nokw: "", date: "", price: 0 });
-        } 
-
-        else if (formState.nokw == null) {
-            setNotification({ show: true, statusNotif: "warning" });
-            props.flash.message = "Isi No. Kwitansi";
-        }
-        else if (formState.date == null) {
-            setNotification({ show: true, statusNotif: "warning" });
-            props.flash.message = "Isi No. Kwitansi";
         }
     };
 
-    console.log(customerState);
-
     const handleSubmit = () => {
         const data = { ...printedData };
-        if (customerState && total > 0) {
+        if (customerState) {
             const all = {
+                id: props.invoice.id,
                 customer_id: customerState.id,
                 data,
                 total_price: total,
             };
-            router.post("/invoice", all);
+            router.post("/invoice/edit", all);
             setFormState({ nokw: "", date: "", price: 0 });
         } else {
             setNotification({ show: true, statusNotif: "warning" });
@@ -137,7 +121,8 @@ export default function CreateInvoice(props) {
     let total = 0;
     if (printedData.length != 0) {
         total = printedData.reduce(
-            (total, currentItem) => (total = total + currentItem.price),
+            (total, currentItem) =>
+                (total = total + parseInt(currentItem.price)),
             0
         );
 
@@ -217,20 +202,20 @@ export default function CreateInvoice(props) {
                         </div>
                     </div>
                     <button
-                        className="btn btn-primary "
+                        className="btn btn-primary"
                         onClick={() => handleSubmit()}
                     >
-                        <box-icon name="save" color="#B4BFFE" className="" />
+                        <box-icon name="save" color="#B4BFFE" />
                         Submit
                     </button>
                     <button
-                        className="btn btn-outline btn-primary mx-3"
+                        className="btn btn-primary mx-3"
                         onClick={handleAddRow}
                     >
-                        <box-icon name="plus" color="#570DF8" />
+                        <box-icon name="plus" />
                         Tambah Data
                     </button>
-                    <div className="form-control my-4 ">
+                    <div className="form-control my-4">
                         {selectedOption != null ? (
                             <div>
                                 <InputLabel htmlFor="nokw">Customer</InputLabel>
@@ -247,7 +232,7 @@ export default function CreateInvoice(props) {
                                         className="btn btn-warning join-item relative"
                                         onClick={() => resetSelected()}
                                     >
-                                        <box-icon name="reset" />
+                                        reset
                                     </button>
                                 </div>
                             </div>
@@ -318,7 +303,7 @@ export default function CreateInvoice(props) {
                             <h1 className="text-center">INVOICE</h1>{" "}
                             <div>
                                 <h4>Kepada</h4>
-                                <p>{selectedOption}</p>
+                                <p>{customerState.name}</p>
                             </div>
                         </div>
                     </div>
@@ -425,7 +410,7 @@ export default function CreateInvoice(props) {
                                 {dateNow.getFullYear()}
                             </p>
                             <div>
-                                <p>{selectedOption}</p>
+                                <p>{customerState.name}</p>
                             </div>
                         </div>
                     </div>

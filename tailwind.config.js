@@ -1,5 +1,4 @@
 import defaultTheme from "tailwindcss/defaultTheme";
-import forms from "@tailwindcss/forms";
 import typography from "@tailwindcss/typography";
 import daisyui from "daisyui";
 
@@ -17,6 +16,8 @@ export default {
             colors: {
                 "trust-blue": "#343DF5",
                 "deep-blue": "#1A26D8",
+                "sim-red": "#D71A21",
+                "sim-blue": "#1419a8",
             },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
@@ -24,5 +25,8 @@ export default {
         },
     },
 
-    plugins: [typography, forms, daisyui],
+    plugins: [typography, daisyui],
+    daisyui: {
+        themes: ["light", "dark"],
+    },
 };
