@@ -15,7 +15,7 @@ export default function Guest({ children, header }) {
                         htmlFor="my-drawer-2"
                         className="drawer-overlay"
                     ></label>
-                    <div className="lg:mr-2 lg:ml-4 lg:my-4 mx-4 mt-4 p-4 w-full bg-base text-base-content rounded-2xl">
+                    <div className="lg:mr-2 lg:ml-4 lg:my-4 mx-4 mt-4 p-4 w-full bg-base text-base-content rounded-2xl overflow-hidden">
                         <div className="flex align-middle justify-center lg:justify-normal items-center h-fit lg:mb-12">
                             <box-icon
                                 name="chart"
@@ -28,7 +28,9 @@ export default function Guest({ children, header }) {
                                 Penerimaan Barang.
                             </p>
                         </div>
-                        <Lottie animationData={Login} className="h-64" />
+                        <div className="lg:flex items-center justify-center h-full pb-64  hidden ">
+                            <Lottie animationData={Login} className="h-3/5" />
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-wrap m-4 bg-white rounded-2xl p-12 align-middle">
