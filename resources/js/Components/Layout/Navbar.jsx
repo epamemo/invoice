@@ -69,7 +69,7 @@ const Navbar = ({ user, children, theme, onchange }) => {
                                 tabIndex={0}
                                 className="btn btn-ghost w-full"
                             >
-                                <p className="font-semibold mr-2">
+                                <p className="font-semibold mr-2 hidden lg:block">
                                     {user.name}
                                 </p>
                                 <div className="w-10 mask mask-squircle">

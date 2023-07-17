@@ -46,7 +46,7 @@ export default function Authenticated({ user, header, children }) {
                         htmlFor="my-drawer-2"
                         className="btn btn-primary drawer-button lg:hidden"
                     >
-                        Open drawer
+                        <box-icon size="md" color="#ffffff" name="chart" />
                     </label>
                 </Navbar>
                 <main className="bg-base-100 p-6 mb-4 ml-2 mr-4 rounded-2xl">

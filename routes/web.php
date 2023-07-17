@@ -30,20 +30,26 @@ Route::inertia('/404', 'Error/404')->name('error.404');
 Route::inertia('/testtest', 'User/Test')->middleware(['auth', 'verified'])->name('page.test');
 Route::inertia('/test2', 'User/FormAdd')->middleware(['auth', 'verified'])->name('page.test2');
 
-Route::post('/customer/delete', [CustomerController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.customer');
-Route::post('/customer/edit', [CustomerController::class, 'update'])->middleware(['auth', 'verified'])->name('update.customer');
-Route::get('/customer/edit', [CustomerController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.customer');
-Route::post('/customer/create', [CustomerController::class, 'store'])->middleware(['auth', 'verified'])->name('store.customer');
-Route::get('/customer/create', [CustomerController::class, 'create'])->middleware(['auth', 'verified'])->name('create.customer');
-Route::get('/customer', [CustomerController::class, 'index'])->middleware(['auth', 'verified'])->name('index.customer');
+Route::prefix('/customer')->middleware(['auth','verified'])->group(function(){
+    Route::post('/delete', [CustomerController::class, 'destroy'])->name('delete.customer');
+    Route::post('/edit', [CustomerController::class, 'update'])->name('update.customer');
+    Route::get('/edit', [CustomerController::class, 'edit'])->name('edit.customer');
+    Route::post('/create', [CustomerController::class, 'store'])->name('store.customer');
+    Route::get('/create', [CustomerController::class, 'create'])->name('create.customer');
+    Route::get('/', [CustomerController::class, 'index'])->name('index.customer');
+});
 
-Route::post('/invoice', [InvoiceItemController::class, 'store'])->middleware(['auth', 'verified'])->name('create.invoice');
-Route::get('/invoice', [InvoiceController::class, 'create'])->middleware(['auth', 'verified'])->name('index.invoice');
-Route::get('/invoice/history', [InvoiceController::class, 'show'])->middleware(['auth', 'verified'])->name('history.invoice');
-Route::get('/invoice/edit', [InvoiceController::class, 'edit'])->middleware(['auth', 'verified'])->name('edit.invoice');
-Route::post('/invoice/edit', [InvoiceController::class, 'update'])->middleware(['auth', 'verified'])->name('update.invoice');
-Route::post('/invoice/delete', [InvoiceController::class, 'destroy'])->middleware(['auth', 'verified'])->name('delete.invoice');
-Route::get('/invoice/print', [InvoiceController::class, 'print'])->middleware(['auth', 'verified'])->name('print.invoice');
+Route::prefix('/invoice')->middleware(['auth', 'verified'])->group(function()
+{
+    Route::get('/history', [InvoiceController::class, 'show'])->name('history.invoice');
+    Route::get('/edit', [InvoiceController::class, 'edit'])->name('edit.invoice');
+    Route::post('/edit', [InvoiceController::class, 'update'])->name('update.invoice');
+    Route::post('/delete', [InvoiceController::class, 'destroy'])->name('delete.invoice');
+    Route::get('/print', [InvoiceController::class, 'print'])->name('print.invoice');
+    Route::post('/', [InvoiceItemController::class, 'store'])->name('create.invoice');
+    Route::get('/', [InvoiceController::class, 'create'])->name('index.invoice');
+});
+
 
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
