@@ -42,7 +42,7 @@ export default function Dashboard(props) {
                         Riwayat Data Invoice Terakhir
                     </h1>
                     <div className="overflow-x-auto">
-                        <table className="table table-pin-rows table-zebra table-pin-cols rounded-2xl">
+                        <table className="table table-zebra rounded-2xl">
                             {/* head */}
                             <thead>
                                 <tr className="text-center">

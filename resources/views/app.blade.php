@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <meta name="description" content="Aplikasi Penerimaan Barang adalah sebuah sistem yang digunakan untuk mengelola proses penerimaan barang di dalam organisasi. Fitur-fitur utama meliputi pencatatan detail barang, verifikasi kualitas, pencatatan riwayat penerimaan, dan laporan analisis. Meningkatkan efisiensi dan pengelolaan persediaan barang dalam lingkungan kantor Anda.">
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
