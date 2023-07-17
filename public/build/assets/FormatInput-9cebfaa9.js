@@ -1,0 +1,1 @@
+function o(n,t){let i=n.replace(/[^,\d]/g,"").toString(),e=i.split(","),a=e[0].length%3,r=e[0].substr(0,a),s=e[0].substr(a).match(/\d{3}/gi);return s&&(r+=(a?".":"")+s.join(".")),r=e[1]!==void 0?r+","+e[1]:r,t==null?r:r?"Rp. "+r:""}function d(n,t){const e=n.replace(/[^\d]/g,"").slice(0,20).replace(/(\d{4})(?=\d)/g,"$1-");return t===void 0?e:`${t} ${e}`}export{o as a,d as f};
