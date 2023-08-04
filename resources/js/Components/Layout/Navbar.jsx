@@ -8,7 +8,7 @@ const Navbar = ({ user, children, theme, onchange }) => {
         themeChange(false);
     }, []);
     return (
-        <div className="pb-2  pl-2 pr-4 sticky">
+        <div className="pb-4  pl-2 pr-4 sticky">
             <div className="navbar bg-base-100 rounded-2xl">
                 <div className="navbar-start">
                     {children}
