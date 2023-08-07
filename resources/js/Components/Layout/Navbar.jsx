@@ -72,8 +72,12 @@ const Navbar = ({ user, children, theme, onchange }) => {
                                 <p className="font-semibold mr-2 hidden lg:block">
                                     {user.name}
                                 </p>
-                                <div className="w-10 mask mask-squircle">
-                                    <img src="../storage/images/90.jpg" />
+                                <div className="">
+                                    <box-icon
+                                        name="user-circle"
+                                        size="md"
+                                    ></box-icon>
+                                    {/* <img src="../storage/images/90.jpg" /> */}
                                 </div>
                             </label>
                             <ul
@@ -81,11 +85,7 @@ const Navbar = ({ user, children, theme, onchange }) => {
                                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
                             >
                                 <li>
-                                    <Link
-                                        className="justify-between"
-                                        href={route("dashboard")}
-                                        as="button"
-                                    >
+                                    <Link href={route("dashboard")} as="button">
                                         <box-icon
                                             name="home"
                                             color={
@@ -95,7 +95,6 @@ const Navbar = ({ user, children, theme, onchange }) => {
                                             }
                                         ></box-icon>
                                         Dashboard
-                                        <span className="badge ">New</span>
                                     </Link>
                                 </li>
                                 <li>
