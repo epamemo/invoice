@@ -20,7 +20,7 @@ export default function Dashboard(props) {
                 <div className="grid grid-cols-3 gap-4 mb-3">
                     <CardDashboard
                         data={props.invoice.length}
-                        name="Total Data Penerimaan Barang"
+                        name="Total Data Penerimaan Invoice"
                         icon="package"
                         color="bg-green-400"
                     />

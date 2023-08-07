@@ -25,7 +25,7 @@ export default function Guest({ children, header }) {
                             ></box-icon>
 
                             <p className="ml-2 normal-case text-xl  font-bold">
-                                Penerimaan Barang.
+                                Penerimaan Invoice.
                             </p>
                         </div>
                         <div className="lg:flex items-center justify-center h-full pb-64  hidden ">

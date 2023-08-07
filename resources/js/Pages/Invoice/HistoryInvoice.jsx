@@ -165,7 +165,7 @@ export default function History(props) {
                                                 />
                                             </td>
                                             <td>{inv.status}</td>
-                                            <td className="flex gap-3">
+                                            <td className="flex justify-center">
                                                 <div className="join rounded-xl">
                                                     <Link
                                                         className="btn btn-accent join-item"

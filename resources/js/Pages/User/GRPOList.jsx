@@ -63,7 +63,7 @@ export default function Dashboard(props) {
                 )}
                 <div className="bg-white  mb-4  rounded-2xl">
                     <div className="p-6 text-gray-900 prose-h1:font-bold prose-h1:text-2xl">
-                        <h1>Buat Penerimaan Barang</h1>
+                        <h1>Buat Penerimaan Invoice</h1>
                         <div className="form-control my-4">
                             <InputLabel htmlFor="title">Title</InputLabel>
                             <TextInput
