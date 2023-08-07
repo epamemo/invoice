@@ -1,1 +1,0 @@
-import{j as a,F as r,a as t,b as n}from"./app-096681d8.js";import{S as s}from"./Sidebar-fcc0b717.js";import"./boxicons-e0508a0b.js";function m(e){return console.log(e.news),a(r,{children:[t(n,{title:e.title}),t(s,{user:e.auth.user,children:t("h1",{children:"Content"})})]})}export{m as default};
